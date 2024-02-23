@@ -9,7 +9,9 @@ export default function TaskCard({ taskObj, onUpdate }) {
 
   const deleteThisTask = () => {
     if (window.confirm('Delete this task?')) {
-      deleteTask(taskObj.project, taskObj.id).then(() => onUpdate());
+      if (taskObj && taskObj.project && taskObj.id) {
+        deleteTask(taskObj.project, taskObj.id).then(() => onUpdate && onUpdate());
+      }
     }
   };
 
@@ -27,7 +29,7 @@ export default function TaskCard({ taskObj, onUpdate }) {
             <Button
               variant="warning"
               onClick={() => {
-                router.push(`/projects/${taskObj.project}/tasks/edit/${taskObj.id}`);
+                router.push(`/tasks/edit/${taskObj.id}`);
               }}
             >
               Edit
@@ -52,7 +54,11 @@ TaskCard.propTypes = {
     description: PropTypes.string.isRequired,
     priority: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
-    project: PropTypes.number.isRequired,
+    project: PropTypes.number,
   }).isRequired,
-  onUpdate: PropTypes.func.isRequired,
+  onUpdate: PropTypes.func,
+};
+
+TaskCard.defaultProps = {
+  onUpdate: () => {},
 };
