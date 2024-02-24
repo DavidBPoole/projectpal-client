@@ -37,8 +37,8 @@ const createCategory = (category) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const updateCategory = (categoryId, payload) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/categories/${categoryId}`, {
+const updateCategory = (payload) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/categories/${payload.id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',

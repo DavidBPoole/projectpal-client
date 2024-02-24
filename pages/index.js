@@ -12,22 +12,6 @@ function Projects() {
   const { user } = useAuth();
   const [userProjects, setUserProjects] = useState([]);
   const [refresh, setRefresh] = useState(0);
-  // const [projects, setProjects] = useState([]);
-
-  // const getAllProjects = async () => {
-  //   try {
-  //     const projectsData = await getProjects();
-  //     console.warn('Projects Data:', projectsData);
-  //     setProjects(projectsData);
-  //   } catch (error) {
-  //     console.error('Error fetching projects:', error);
-  //     console.warn('Error response:', error.response);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getAllProjects();
-  // }, []);
 
   useEffect(() => {
     // Fetch user-specific projects when the user is authenticated
@@ -40,10 +24,6 @@ function Projects() {
       });
     }
   }, [user, refresh]);
-
-  // const handleAddNewProject = () => {
-  //   router.push('/project/new');
-  // };
 
   const refreshHomePage = () => {
     setRefresh((prevVal) => prevVal + 1);

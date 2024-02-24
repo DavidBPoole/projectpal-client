@@ -4,12 +4,16 @@ import { Card, Button } from 'react-bootstrap';
 import { useRouter } from 'next/router';
 import { deleteTask } from '../utils/data/TaskData';
 
-export default function TaskCard({ taskObj, onUpdate }) {
+// eslint-disable-next-line react/prop-types
+export default function TaskCard({ taskObj, projectId, refreshPage }) {
   const router = useRouter();
+  // const { projectId } = router.query;
+  // console.warn(projectId);
 
-  const deleteThisTask = () => {
+  const deleteThisTask = async () => {
     if (window.confirm('Delete this task?')) {
-      deleteTask(taskObj.project, taskObj.id).then(() => onUpdate());
+      await deleteTask(taskObj.id);
+      refreshPage();
     }
   };
 
@@ -27,7 +31,7 @@ export default function TaskCard({ taskObj, onUpdate }) {
             <Button
               variant="warning"
               onClick={() => {
-                router.push(`/projects/${taskObj.project}/tasks/edit/${taskObj.id}`);
+                router.push(`/tasks/edit/${taskObj.id}?projectId=${projectId}`);
               }}
             >
               Edit
@@ -47,12 +51,16 @@ export default function TaskCard({ taskObj, onUpdate }) {
 
 TaskCard.propTypes = {
   taskObj: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.number,
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     priority: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
-    project: PropTypes.number.isRequired,
+    project: PropTypes.number,
   }).isRequired,
-  onUpdate: PropTypes.func.isRequired,
+  refreshPage: PropTypes.func,
+};
+
+TaskCard.defaultProps = {
+  refreshPage: () => {},
 };
