@@ -4,14 +4,13 @@ import { Card, Button } from 'react-bootstrap';
 import { useRouter } from 'next/router';
 import { deleteTask } from '../utils/data/TaskData';
 
-export default function TaskCard({ taskObj, onUpdate }) {
+export default function TaskCard({ taskObj, refreshPage }) {
   const router = useRouter();
 
-  const deleteThisTask = () => {
+  const deleteThisTask = async () => {
     if (window.confirm('Delete this task?')) {
-      if (taskObj && taskObj.project && taskObj.id) {
-        deleteTask(taskObj.project, taskObj.id).then(() => onUpdate && onUpdate());
-      }
+      await deleteTask(taskObj.id);
+      refreshPage();
     }
   };
 
@@ -29,7 +28,7 @@ export default function TaskCard({ taskObj, onUpdate }) {
             <Button
               variant="warning"
               onClick={() => {
-                router.push(`/tasks/edit/${taskObj.id}`);
+                router.push(`/tasks/edit/${taskObj.id}?projectId=${taskObj.project}`);
               }}
             >
               Edit
@@ -49,16 +48,16 @@ export default function TaskCard({ taskObj, onUpdate }) {
 
 TaskCard.propTypes = {
   taskObj: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.number,
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     priority: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
     project: PropTypes.number,
   }).isRequired,
-  onUpdate: PropTypes.func,
+  refreshPage: PropTypes.func,
 };
 
 TaskCard.defaultProps = {
-  onUpdate: () => {},
+  refreshPage: () => {},
 };

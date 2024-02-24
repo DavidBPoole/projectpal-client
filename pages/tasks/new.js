@@ -93,12 +93,52 @@
 //   );
 // export default NewTask;
 
+// import TaskForm from '../../components/TaskForm';
+
+// const NewTask = () => (
+//   <div>
+//     <TaskForm />
+//   </div>
+// );
+
+// export default NewTask;
+
+// import React from 'react';
+// import { useRouter } from 'next/router';
+// import TaskForm from '../../components/TaskForm';
+
+// const NewTask = () => {
+//   const router = useRouter();
+//   const { projectId } = router.query; // Look for projectId in the URL query parameters
+
+//   console.warn('Router Query:', router.query);
+
+//   // Check if projectId is available
+//   if (!projectId) {
+//     // Redirect or display an error message as needed
+//     // For example, you can redirect the user to the projects page:
+//     // router.push('/projects');
+//     return <p>Project ID not available. Redirecting...</p>;
+//   }
+
+//   return (
+//     <div>
+//       {/* Pass projectId as a string to TaskForm */}
+//       <TaskForm project={{ id: String(projectId) }} />
+//     </div>
+//   );
+// };
+
+// export default NewTask;
+
+// LATEST EFFORT BELOW **********
+import React from 'react';
+import { useRouter } from 'next/router';
 import TaskForm from '../../components/TaskForm';
 
-const NewTask = () => (
-  <div>
-    <TaskForm />
-  </div>
-);
+export default function NewTask() {
+  const router = useRouter();
+  const { projectId } = router.query;
 
-export default NewTask;
+  return <TaskForm projectId={projectId} />;
+}

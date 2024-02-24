@@ -154,12 +154,120 @@
 
 // export default ProjectDetails;
 
+// THIS METHOD IS BEST VERSION TO DATE - DONT LOSE ***********
 // Second method with original id destructuring from router query, but with enhanced if blocks to prevent failures:
+// import React, { useState, useEffect } from 'react';
+// import Button from 'react-bootstrap/Button';
+// // import PropTypes from 'prop-types';
+// import { Alert } from 'react-bootstrap';
+// import { useRouter } from 'next/router';
+// import Link from 'next/link';
+// import { getSingleProject } from '../../utils/data/ProjectData';
+// import TaskCard from '../../components/TaskCard';
+// import { getTasks } from '../../utils/data/TaskData';
+
+// const ProjectDetails = () => {
+//   const [project, setProject] = useState();
+//   const [errorMessage, setErrorMessage] = useState();
+//   const router = useRouter();
+//   const { id } = router.query;
+//   // const projectId = id ? parseInt(id, 10) : null;
+
+//   useEffect(() => {
+//     const fetchProjectDetails = async () => {
+//       try {
+//         if (id) {
+//           const projectData = await getSingleProject(id);
+//           const tasksData = await getTasks(id);
+
+//           const projectWithTasks = {
+//             ...projectData,
+//             tasks: tasksData || [],
+//           };
+
+//           setProject(projectWithTasks);
+//         }
+//       } catch (error) {
+//         console.error('Error fetching project details:', error);
+//         setErrorMessage('Error fetching project details.');
+//       }
+//     };
+
+//     fetchProjectDetails();
+//   }, [id]);
+//   // KEEP THIS COMMENTED OUT **********
+//   // const handleAddTask = () => {
+//   //   router.push(`/tasks/new?projectId=${project?.id}`);
+//   // };
+
+//   // 2
+//   // useEffect(() => {
+//   //   if (project) {
+//   //     handleAddTask();
+//   //   }
+//   // }, [project, handleAddTask]);
+//   // *************************************
+//   // eslint-disable-next-line react-hooks/exhaustive-deps
+//   const handleAddTask = () => {
+//     router.push(`/tasks/new?projectId=${project?.id}`);
+//   };
+
+//   useEffect(() => {
+//     if (project) {
+//       handleAddTask();
+//     }
+//   }, [project, handleAddTask]);
+
+//   function formatDueDate(rawDate) {
+//     const dateObject = new Date(rawDate);
+//     const month = dateObject.getMonth() + 1;
+//     const day = dateObject.getDate() + 1;
+//     const year = dateObject.getFullYear();
+
+//     return `${month}-${day}-${year}`;
+//   }
+
+//   return (
+//     <div>
+//       {project ? (
+//         <div>
+//           <h1>{project.name}</h1>
+//           <p>Description: {project.description}</p>
+//           <p>Due Date: {formatDueDate(project.due_date)}</p>
+//           <p>Status: {project.status}</p>
+
+//           <h2>Tasks</h2>
+//           {project.tasks.map((taskObj) => (
+//             <TaskCard
+//               key={taskObj.id}
+//               taskObj={taskObj}
+//             />
+//           ))}
+//           <Link href={`/tasks/new/${project.id}`} passHref>
+//             <Button variant="primary" className="m-2" style={{ borderRadius: 50 }}>
+//               <b><em>2nd Add Task</em></b>
+//             </Button>
+//           </Link>
+//           <Button projectid={project.id} onClick={handleAddTask}>Add Task</Button>
+//           {/* <Button onClick={handleAddTask}>Add Task</Button> */}
+//         </div>
+//       ) : (
+//         <Alert variant="danger" className="text-center" style={{ backgroundColor: '#f8d7da', color: '#721c24' }}>
+//           {errorMessage || 'Loading...'}
+//         </Alert>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default ProjectDetails;
+// *******************************************
+
 import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
-// import PropTypes from 'prop-types';
 import { Alert } from 'react-bootstrap';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { getSingleProject } from '../../utils/data/ProjectData';
 import TaskCard from '../../components/TaskCard';
 import { getTasks } from '../../utils/data/TaskData';
@@ -168,34 +276,58 @@ const ProjectDetails = () => {
   const [project, setProject] = useState();
   const [errorMessage, setErrorMessage] = useState();
   const router = useRouter();
-  const { id } = router.query;
+  const { id: projectId } = router.query;
+
+  // useEffect(() => {
+  //   const fetchProjectDetails = async () => {
+  //     try {
+  //       if (projectId) {
+  //         const projectData = await getSingleProject(projectId);
+  //         const tasksData = await getTasks(projectId);
+
+  //         const projectWithTasks = {
+  //           ...projectData,
+  //           tasks: tasksData || [],
+  //         };
+
+  //         setProject(projectWithTasks);
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching project details:', error);
+  //       setErrorMessage('Error fetching project details.');
+  //     }
+  //   };
+
+  //   if (projectId !== undefined) {
+  //     fetchProjectDetails();
+  //   }
+  // }, [projectId]);
+
+  const fetchProjectDetails = async () => {
+    try {
+      if (projectId) {
+        const projectData = await getSingleProject(projectId);
+        const tasksData = await getTasks(projectId);
+
+        const projectWithTasks = {
+          ...projectData,
+          tasks: tasksData || [],
+        };
+
+        setProject(projectWithTasks);
+      }
+    } catch (error) {
+      // console.error('Error fetching project details:', error);
+      // setErrorMessage('Error fetching project details.');
+    }
+  };
 
   useEffect(() => {
-    const fetchProjectDetails = async () => {
-      try {
-        if (id) {
-          const projectData = await getSingleProject(id);
-          const tasksData = await getTasks(id);
-
-          const projectWithTasks = {
-            ...projectData,
-            tasks: tasksData || [],
-          };
-
-          setProject(projectWithTasks);
-        }
-      } catch (error) {
-        console.error('Error fetching project details:', error);
-        setErrorMessage('Error fetching project details.');
-      }
-    };
-
-    fetchProjectDetails();
-  }, [id]);
-
-  const handleAddTask = () => {
-    router.push('/tasks/new');
-  };
+    if (projectId !== undefined) {
+      fetchProjectDetails();
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [projectId]);
 
   function formatDueDate(rawDate) {
     const dateObject = new Date(rawDate);
@@ -205,6 +337,34 @@ const ProjectDetails = () => {
 
     return `${month}-${day}-${year}`;
   }
+
+  //   return (
+  //     <div>
+  //       {project ? (
+  //         <div>
+  //           <h1>{project.name}</h1>
+  //           <p>Description: {project.description}</p>
+  //           <p>Due Date: {formatDueDate(project.due_date)}</p>
+  //           <p>Status: {project.status}</p>
+
+  //           <h2>Tasks</h2>
+  //           {project.tasks.map((taskObj) => (
+  //             <TaskCard key={taskObj.id} taskObj={taskObj} refreshPage={fetchProjectDetails} />
+  //           ))}
+  //           <Link href={`/tasks/new?projectId=${project.id}`} passHref>
+  //             <Button variant="primary" className="m-2" style={{ borderRadius: 50 }}>
+  //               <b><em>Add Task</em></b>
+  //             </Button>
+  //           </Link>
+  //         </div>
+  //       ) : (
+  //         <Alert variant="danger" className="text-center" style={{ backgroundColor: '#f8d7da', color: '#721c24' }}>
+  //           {errorMessage || 'Loading...'}
+  //         </Alert>
+  //       )}
+  //     </div>
+  //   );
+  // };
 
   return (
     <div>
@@ -217,22 +377,16 @@ const ProjectDetails = () => {
 
           <h2>Tasks</h2>
           {project.tasks.map((taskObj) => (
-            <TaskCard
-              key={taskObj.id}
-              taskObj={taskObj}
-            />
+            <TaskCard key={taskObj.id} taskObj={taskObj} refreshPage={fetchProjectDetails} />
           ))}
-
-          {/* <Button projectid={project.id} onClick={handleAddTask}>Add Task</Button> */}
-          <Button onClick={handleAddTask}>Add Task</Button>
+          <Link href={`/tasks/new?projectId=${project.id}`} passHref>
+            <Button variant="primary" className="m-2" style={{ borderRadius: 50 }}>
+              <b><em>Add Task</em></b>
+            </Button>
+          </Link>
         </div>
-      ) : (
-        <Alert variant="danger" className="text-center" style={{ backgroundColor: '#f8d7da', color: '#721c24' }}>
-          {errorMessage || 'Loading...'}
-        </Alert>
-      )}
+      ) : null}
     </div>
   );
 };
-
 export default ProjectDetails;

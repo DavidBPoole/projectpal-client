@@ -38,12 +38,12 @@ const createTask = (payload) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const updateTask = (payload, userId) => new Promise((resolve, reject) => {
+const updateTask = (payload) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/tasks/${payload.id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `${userId}`,
+      // Authorization: `${userId}`,
     },
     body: JSON.stringify(payload),
   })
@@ -51,8 +51,8 @@ const updateTask = (payload, userId) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const deleteTask = (taskId) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/tasks/${taskId}`, {
+const deleteTask = (id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/tasks/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',

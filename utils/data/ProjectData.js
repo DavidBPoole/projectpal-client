@@ -31,63 +31,6 @@ const getUserProjects = (userId) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-// const getProjectsForUser = (uid) => {
-//   // Assuming you have a way to get the current user's ID or UID
-//   fetch(`${clientCredentials.databaseURL}/projects/user_projects`, {
-//     method: 'GET',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       Authorization: `${uid}`, // Add your authentication token if required
-//     },
-//   })
-//     .then((response) => response.json())
-//     .then((data) => {
-//       console.warn('User Projects Data:', data);
-//       // Update state or perform other actions with the data
-//     })
-//     .catch((error) => {
-//       console.error('Error fetching user projects:', error);
-//     });
-// };
-
-// const getProjects = (uid) => new Promise((resolve, reject) => {
-//   // const userId = encodeURIComponent(uid); // Encode the user ID
-//   fetch(`${clientCredentials.databaseURL}/projects?user=${uid}`, {
-//     method: 'GET',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       Authorization: `${uid}`,
-//     },
-//   })
-//     .then((response) => response.json())
-//     .then((data) => {
-//       console.warn('Projects Data:', data); // Log the data to the console
-//       resolve(data);
-//     })
-//     .catch(reject);
-// });
-
-// const getSingleProject = (id) => new Promise((resolve, reject) => {
-//   fetch(`${clientCredentials.databaseURL}/projects/${id}`)
-//     .then((response) => response.json())
-//     .then(resolve)
-//     .catch(reject);
-// });
-
-// 1
-// const getSingleProject = (id) => fetch(`${clientCredentials.databaseURL}/projects/${id}`)
-//   .then((response) => {
-//     if (!response.ok) {
-//       throw new Error(`Failed to fetch project: ${response.status} ${response.statusText}`);
-//     }
-//     return response.json();
-//   })
-//   .catch((error) => {
-//     console.error('Error fetching project:', error.message);
-//     throw error;
-//   });
-
-// 2
 const getSingleProject = (projectId) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/projects/${projectId}`, {
     method: 'GET',
@@ -105,69 +48,12 @@ const getSingleProject = (projectId) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-// const createProject = (payload, uid) => new Promise((resolve, reject) => {
-//   fetch(`${clientCredentials.databaseURL}/projects`, {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       Authorization: `${uid}`,
-//     },
-//     body: JSON.stringify(payload),
-//   })
-//     .then((response) => response.json())
-//     .then((data) => {
-//       resolve(data);
-//     })
-//     .catch((error) => {
-//       console.error('Create Project Error:', error);
-//       reject(error);
-//     });
-// });
-
-// const createProject = (payload, uid) => new Promise((resolve, reject) => {
-//   fetch(`${clientCredentials.databaseURL}/projects`, {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       Authorization: `${uid}`,
-//     },
-//     body: JSON.stringify(payload),
-//   })
-//     .then((response) => {
-//       if (!response.ok) {
-//         throw new Error('Network response was not ok');
-//       }
-//       return response.json();
-//     })
-//     .then((data) => {
-//       resolve(data);
-//     })
-//     .catch((error) => {
-//       console.error('Create Project Error:', error);
-//       reject(error);
-//     });
-// });
-
-// const createProject = (payload) => new Promise((resolve, reject) => {
-//   fetch(`${clientCredentials.databaseURL}/projects`, {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify(payload),
-//   })
-//     .then((response) => response.json())
-//     .then((data) => resolve(data))
-//     .catch(reject);
-// });
-
 function createProject(payload) {
   return new Promise((resolve, reject) => {
     fetch(`${clientCredentials.databaseURL}/projects`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        // Authorization: `${uid}`, not needed? still works
       },
       body: JSON.stringify(payload),
     })
@@ -178,7 +64,7 @@ function createProject(payload) {
         return response.json();
       })
       .then((data) => {
-        resolve(data.id); // Return the ID of the created project
+        resolve(data.id);
       })
       .catch((error) => {
         console.error('Create Project Error:', error);
@@ -187,12 +73,11 @@ function createProject(payload) {
   });
 }
 
-const updateProject = (payload, uid) => new Promise((resolve, reject) => {
+const updateProject = (payload) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/projects/${payload.id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `${uid}`,
     },
     body: JSON.stringify(payload),
   })
