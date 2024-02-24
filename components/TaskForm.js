@@ -712,6 +712,7 @@ const TaskForm = ({ taskObj }) => {
 
   useEffect(() => {
     // Fetch project details based on projectId
+    // console.warn(projectId);
     if (projectId) {
       getSingleProject(projectId)
         // eslint-disable-next-line no-unused-vars

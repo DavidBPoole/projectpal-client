@@ -377,7 +377,7 @@ const ProjectDetails = () => {
 
           <h2>Tasks</h2>
           {project.tasks.map((taskObj) => (
-            <TaskCard key={taskObj.id} taskObj={taskObj} refreshPage={fetchProjectDetails} />
+            <TaskCard key={taskObj.id} taskObj={taskObj} projectId={projectId} refreshPage={fetchProjectDetails} />
           ))}
           <Link href={`/tasks/new?projectId=${project.id}`} passHref>
             <Button variant="primary" className="m-2" style={{ borderRadius: 50 }}>

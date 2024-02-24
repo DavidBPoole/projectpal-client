@@ -4,8 +4,11 @@ import { Card, Button } from 'react-bootstrap';
 import { useRouter } from 'next/router';
 import { deleteTask } from '../utils/data/TaskData';
 
-export default function TaskCard({ taskObj, refreshPage }) {
+// eslint-disable-next-line react/prop-types
+export default function TaskCard({ taskObj, projectId, refreshPage }) {
   const router = useRouter();
+  // const { projectId } = router.query;
+  // console.warn(projectId);
 
   const deleteThisTask = async () => {
     if (window.confirm('Delete this task?')) {
@@ -28,7 +31,7 @@ export default function TaskCard({ taskObj, refreshPage }) {
             <Button
               variant="warning"
               onClick={() => {
-                router.push(`/tasks/edit/${taskObj.id}?projectId=${taskObj.project}`);
+                router.push(`/tasks/edit/${taskObj.id}?projectId=${projectId}`);
               }}
             >
               Edit

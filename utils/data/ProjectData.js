@@ -9,7 +9,7 @@ const getProjects = () => new Promise((resolve, reject) => {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.warn('Projects Data:', data);
+      // console.warn('Projects Data:', data);
       resolve(data);
     })
     .catch(reject);
@@ -25,7 +25,7 @@ const getUserProjects = (userId) => new Promise((resolve, reject) => {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.warn('Projects Data:', data);
+      // console.warn('Projects Data:', data);
       resolve(data);
     })
     .catch(reject);
