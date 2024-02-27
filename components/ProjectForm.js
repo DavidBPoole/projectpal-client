@@ -13,6 +13,12 @@ const initialState = {
   // user: '',
 };
 
+const categoryShape = PropTypes.shape({
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  // Add other properties if needed
+});
+
 const ProjectForm = ({ projectObj }) => {
   const [currentProject, setCurrentProject] = useState(initialState);
   const router = useRouter();
@@ -201,6 +207,7 @@ ProjectForm.propTypes = {
     description: PropTypes.string,
     due_date: PropTypes.string,
     status: PropTypes.string,
+    categories: PropTypes.arrayOf(categoryShape), // Use categoryShape here
     // user: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   }),
 };

@@ -1,6 +1,6 @@
 import { clientCredentials } from '../client';
 
-const getCategories = () => new Promise((resolve, reject) => {
+const getAllCategories = () => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/categories`, {
     method: 'GET',
     headers: {
@@ -65,10 +65,36 @@ const deleteCategory = (categoryId) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const addCategoryToTask = (taskId, categoryId) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/tasks/${taskId}/add_task_category`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ category: categoryId }),
+  })
+    .then(resolve)
+    .catch(reject);
+});
+
+const removeCategoryFromTask = (taskId, categoryId) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/tasks/${taskId}/remove_task_category`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ category: categoryId }),
+  })
+    .then(resolve)
+    .catch(reject);
+});
+
 export {
-  getCategories,
+  getAllCategories,
   getSingleCategory,
   createCategory,
   updateCategory,
   deleteCategory,
+  addCategoryToTask,
+  removeCategoryFromTask,
 };

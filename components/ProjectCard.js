@@ -32,8 +32,9 @@ export default function ProjectCard({ projectObj, refreshPage }) {
     <>
       <div className="project-cards-container">
         <Card className="text-center project-card" style={{ width: '25rem', margin: 20 }}>
-          <Card.Header><b>{projectObj.name}</b></Card.Header>
+          <Card.Header><b>Project ID #{projectObj.id}</b></Card.Header>
           <Card.Body>
+            <Card.Text><b>{projectObj.name}</b></Card.Text>
             <Card.Text><b>Status:</b> {projectObj.status}</Card.Text>
             <Card.Text><b>Due Date:</b> {formatDueDate(projectObj.due_date)}</Card.Text>
 

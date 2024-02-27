@@ -27,7 +27,7 @@ export default function TaskCard({ taskObj, projectId, refreshPage }) {
             <Card.Text><b>Description:</b> {taskObj.description}</Card.Text>
             <Card.Text><b>Priority:</b> {taskObj.priority}</Card.Text>
             <Card.Text><b>Status:</b> {taskObj.status}</Card.Text>
-
+            <Card.Text><b>Categories:</b> {taskObj.categories.join(', ')}</Card.Text>
             <Button
               variant="warning"
               onClick={() => {
@@ -56,6 +56,7 @@ TaskCard.propTypes = {
     description: PropTypes.string.isRequired,
     priority: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
+    categories: PropTypes.arrayOf(PropTypes.string),
     project: PropTypes.number,
   }).isRequired,
   refreshPage: PropTypes.func,

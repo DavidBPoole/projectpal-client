@@ -24,28 +24,28 @@ const getSingleTask = (taskId) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const createTask = (payload) => new Promise((resolve, reject) => {
+const createTask = (task) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/tasks`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       // Authorization: `${userId}`,
     },
-    body: JSON.stringify(payload),
+    body: JSON.stringify(task),
   })
     .then((response) => response.json())
     .then(resolve)
     .catch(reject);
 });
 
-const updateTask = (payload) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/tasks/${payload.id}`, {
+const updateTask = (task) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/tasks/${task.id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
       // Authorization: `${userId}`,
     },
-    body: JSON.stringify(payload),
+    body: JSON.stringify(task),
   })
     .then(resolve)
     .catch(reject);
