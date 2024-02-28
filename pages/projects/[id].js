@@ -68,8 +68,8 @@ const ProjectDetails = () => {
             />
           ))}
           <Link href={`/tasks/new?projectId=${project.id}`} passHref>
-            <Button variant="primary" className="m-2" style={{ borderRadius: 50 }}>
-              <b><em>Add Task</em></b>
+            <Button variant="primary" as="a">
+              Add Task
             </Button>
           </Link>
         </div>
