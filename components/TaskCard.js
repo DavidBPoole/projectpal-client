@@ -1,14 +1,13 @@
+/* eslint-disable react/forbid-prop-types */
+/* eslint-disable react/prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, Button } from 'react-bootstrap';
 import { useRouter } from 'next/router';
 import { deleteTask } from '../utils/data/TaskData';
 
-// eslint-disable-next-line react/prop-types
 export default function TaskCard({ taskObj, projectId, refreshPage }) {
   const router = useRouter();
-  // const { projectId } = router.query;
-  // console.warn(projectId);
 
   const deleteThisTask = async () => {
     if (window.confirm('Delete this task?')) {
@@ -27,7 +26,13 @@ export default function TaskCard({ taskObj, projectId, refreshPage }) {
             <Card.Text><b>Description:</b> {taskObj.description}</Card.Text>
             <Card.Text><b>Priority:</b> {taskObj.priority}</Card.Text>
             <Card.Text><b>Status:</b> {taskObj.status}</Card.Text>
-
+            <Card.Text><b>Categories:</b> {taskObj.categories.map((category, index) => {
+              if (index === taskObj.categories.length - 1) {
+                return category.name;
+              }
+              return `${category.name}, `;
+            })}
+            </Card.Text>
             <Button
               variant="warning"
               onClick={() => {
@@ -56,6 +61,7 @@ TaskCard.propTypes = {
     description: PropTypes.string.isRequired,
     priority: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
+    categories: PropTypes.arrayOf(PropTypes.object),
     project: PropTypes.number,
   }).isRequired,
   refreshPage: PropTypes.func,

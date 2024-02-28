@@ -6,8 +6,6 @@ import TaskForm from '../../../components/TaskForm';
 export default function EditTask() {
   const [editTask, setEditTask] = useState({});
   const router = useRouter();
-  // const { projectId } = router.query;
-  // const { id } = router.query;
   const { projectId, id } = router.query;
 
   useEffect(() => {
@@ -18,7 +16,7 @@ export default function EditTask() {
 
   return (
     <>
-      {editTask?.name && <TaskForm taskObj={editTask} projectId={projectId} />}
+      {editTask && editTask.name && <TaskForm taskObj={editTask} projectId={projectId} />}
     </>
   );
 }

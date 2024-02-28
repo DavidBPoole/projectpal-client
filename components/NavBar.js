@@ -2,7 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 import {
-  Navbar, //
+  Navbar,
   Container,
   Nav,
   Button,
@@ -22,12 +22,6 @@ export default function NavBar() {
             {/* CLOSE NAVBAR ON LINK SELECTION: https://stackoverflow.com/questions/72813635/collapse-on-select-react-bootstrap-navbar-with-nextjs-not-working */}
             <Link passHref href="/">
               <Nav.Link>Projects</Nav.Link>
-            </Link>
-            <Link passHref href="/Tasks">
-              <Nav.Link>Tasks</Nav.Link>
-            </Link>
-            <Link passHref href="/Collaborations">
-              <Nav.Link>Collaborations</Nav.Link>
             </Link>
             <Button variant="danger" onClick={signOut}>
               Sign Out

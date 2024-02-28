@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { registerUser } from '../utils/auth'; // Update with path to registerUser
+import { registerUser } from '../utils/auth';
 
 function RegisterForm({ user, updateUser }) {
   const [formData, setFormData] = useState({
@@ -20,7 +20,6 @@ function RegisterForm({ user, updateUser }) {
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>User Name</Form.Label>
         <Form.Control as="textarea" name="name" required placeholder="Please enter your name" onChange={({ target }) => setFormData((prev) => ({ ...prev, [target.name]: target.value }))} />
-        {/* <Form.Text className="text-muted">Let other gamers know a little bit about you...</Form.Text> */}
       </Form.Group>
       <Button variant="primary" type="submit">
         Submit

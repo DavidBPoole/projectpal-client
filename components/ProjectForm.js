@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
@@ -10,8 +11,12 @@ const initialState = {
   description: '',
   due_date: '',
   status: '',
-  // user: '',
 };
+
+const categoryShape = PropTypes.shape({
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+});
 
 const ProjectForm = ({ projectObj }) => {
   const [currentProject, setCurrentProject] = useState(initialState);
@@ -29,7 +34,6 @@ const ProjectForm = ({ projectObj }) => {
         user: user.id,
       });
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projectObj]);
 
   const handleChange = (e) => {
@@ -49,7 +53,6 @@ const ProjectForm = ({ projectObj }) => {
         description: currentProject.description,
         due_date: currentProject.due_date,
         status: currentProject.status,
-        // userId: user.id,
       };
       updateProject(payload, user.userId)
         .then(() => router.push('/'));
@@ -59,107 +62,6 @@ const ProjectForm = ({ projectObj }) => {
         .then(() => router.push('/'));
     }
   };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   const action = projectObj ? updateProject : createProject;
-  //   action({
-  //     ...currentProject,
-  //     userId: user.id,
-  //     id: projectObj?.id,
-  //   })
-  //     .then((projectData) => {
-  //       if (projectObj) { router.push(`/projects/${projectObj.id}`); } else {
-  //         router.push(`/projects/${projectData.id}`);
-  //       }
-  //     });
-  // };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   const action = projectObj ? updateProject : createProject;
-
-  //   const payload = {
-  //     ...currentProject,
-  //     userId: user.id,
-  //     id: projectObj?.id, // This is fine even if projectObj is undefined
-  //   };
-
-  //   action(payload)
-  //     .then((projectData) => {
-  //       if (projectObj) {
-  //         router.push(`/projects/${projectObj.id}`);
-  //       } else {
-  //         router.push(`/projects/${projectData.id}`);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error updating/creating project:', error);
-  //       // Handle the error as needed
-  //     });
-  // };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   const action = projectObj ? updateProject : createProject;
-
-  //   const payload = {
-  //     ...currentProject,
-  //     userId: user.id,
-  //     id: projectObj?.id, // This is fine even if projectObj is undefined
-  //   };
-
-  //   if (projectObj && projectObj.id) {
-  //     // Only update the project if projectObj.id is defined
-  //     action(payload)
-  //       .then(() => router.push(`/projects/${projectObj.id}`))
-  //       .catch((error) => {
-  //         console.error('Error updating project:', error);
-  //         // Handle the error as needed
-  //       });
-  //   } else {
-  //     // Create a new project if projectObj.id is undefined
-  //     action(payload)
-  //       .then((projectData) => router.push(`/projects/${projectData.id}`))
-  //       .catch((error) => {
-  //         console.error('Error creating project:', error);
-  //         // Handle the error as needed
-  //       });
-  //   }
-  // };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   const action = projectObj ? updateProject : createProject;
-
-  //   const payload = {
-  //     ...currentProject,
-  //     userId: user.id,
-  //     id: projectObj?.id, // This is fine even if projectObj is undefined
-  //   };
-
-  //   if (projectObj && projectObj.id !== undefined) {
-  //     // Only update the project if projectObj.id is defined and not undefined
-  //     action(payload)
-  //       .then(() => router.push(`/projects/${projectObj.id}`))
-  //       .catch((error) => {
-  //         console.error('Error updating project:', error);
-  //         // Handle the error as needed
-  //       });
-  //   } else {
-  //     // Create a new project if projectObj.id is undefined or undefined
-  //     action(payload)
-  //       .then((projectData) => router.push(`/projects/${projectData.id}`))
-  //       .catch((error) => {
-  //         console.error('Error creating project:', error);
-  //         // Handle the error as needed
-  //       });
-  //   }
-  // };
 
   return (
     <>
@@ -201,7 +103,7 @@ ProjectForm.propTypes = {
     description: PropTypes.string,
     due_date: PropTypes.string,
     status: PropTypes.string,
-    // user: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    categories: PropTypes.arrayOf(categoryShape),
   }),
 };
 

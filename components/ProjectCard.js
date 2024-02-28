@@ -7,7 +7,6 @@ import { deleteProject } from '../utils/data/ProjectData';
 
 export default function ProjectCard({ projectObj, refreshPage }) {
   const router = useRouter();
-  // const isCurrentUserCreator = user && projectObj.user === user.uid;
 
   const deleteThisProject = async () => {
     if (window.confirm('Delete this project?')) {
@@ -16,27 +15,21 @@ export default function ProjectCard({ projectObj, refreshPage }) {
     }
   };
 
-  function formatDueDate(rawDate) {
-    const dateObject = new Date(rawDate);
-    // Get the time zone offset and adjust the date
-    // const timeZoneOffset = dateObject.getTimezoneOffset();
-    // dateObject.setMinutes(dateObject.getMinutes() - timeZoneOffset);
-    const month = dateObject.getMonth() + 1;
-    const day = dateObject.getDate() + 1;
-    const year = dateObject.getFullYear();
-
-    return `${month}-${day}-${year}`;
-  }
+  const formatDueDate = (dueDate) => {
+    // Format "YYYY-MM-DD"
+    const [year, month, day] = dueDate.split('-');
+    return `${month}/${day}/${year}`;
+  };
 
   return (
     <>
       <div className="project-cards-container">
         <Card className="text-center project-card" style={{ width: '25rem', margin: 20 }}>
-          <Card.Header><b>{projectObj.name}</b></Card.Header>
+          <Card.Header><b>Project ID #{projectObj.id}</b></Card.Header>
           <Card.Body>
+            <Card.Text><b>{projectObj.name}</b></Card.Text>
             <Card.Text><b>Status:</b> {projectObj.status}</Card.Text>
             <Card.Text><b>Due Date:</b> {formatDueDate(projectObj.due_date)}</Card.Text>
-
             <Link href={`/projects/${projectObj.id}`} passHref>
               <Button variant="primary" as="a">
                 Details
@@ -51,29 +44,10 @@ export default function ProjectCard({ projectObj, refreshPage }) {
             >
               Edit
             </Button>
-
                 &nbsp;
             <Button variant="danger" onClick={deleteThisProject}>
               Delete
             </Button>
-            {/* {isCurrentUserCreator && (
-              <>
-                &nbsp;
-                <Button
-                  variant="warning"
-                  onClick={() => {
-                    router.push(`/projects/edit/${projectObj.id}`);
-                  }}
-                >
-                  Edit
-                </Button>
-
-                &nbsp;
-                <Button variant="danger" onClick={deleteThisProject}>
-                  Delete
-                </Button>
-              </>
-            )} */}
           </Card.Body>
         </Card>
       </div>
