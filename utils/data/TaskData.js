@@ -29,7 +29,6 @@ const createTask = (task) => new Promise((resolve, reject) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      // Authorization: `${userId}`,
     },
     body: JSON.stringify(task),
   })
@@ -43,7 +42,6 @@ const updateTask = (task) => new Promise((resolve, reject) => {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      // Authorization: `${userId}`,
     },
     body: JSON.stringify(task),
   })

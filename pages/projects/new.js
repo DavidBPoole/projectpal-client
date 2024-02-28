@@ -11,11 +11,3 @@ const NewProject = () => {
 };
 
 export default NewProject;
-
-// const NewProject = () => (
-//   <div>
-//     <ProjectForm />
-//   </div>
-// );
-
-// export default NewProject;

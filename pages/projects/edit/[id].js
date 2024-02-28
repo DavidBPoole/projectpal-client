@@ -19,36 +19,3 @@ export default function EditProject() {
     </>
   );
 }
-
-// import ProjectForm from '../../../components/ProjectForm';
-
-// export default function EditProject() {
-//   const [editProject, setEditProject] = useState({});
-//   const [loading, setLoading] = useState(true);
-//   const router = useRouter();
-
-//   const { id } = router.query;
-
-//   useEffect(() => {
-//     setLoading(true);
-//     getSingleProject(id)
-//       .then((projectData) => {
-//         setEditProject(projectData);
-//         setLoading(false);
-//       })
-//       .catch((error) => {
-//         console.error('Error fetching project data:', error);
-//         setLoading(false);
-//       });
-//   }, [id]);
-
-//   if (loading) {
-//     return <p>Loading...</p>;
-//   }
-
-//   return (
-//     <>
-//       <ProjectForm projectObj={editProject} />
-//     </>
-//   );
-// }

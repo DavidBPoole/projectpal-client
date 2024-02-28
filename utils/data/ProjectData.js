@@ -9,7 +9,6 @@ const getProjects = () => new Promise((resolve, reject) => {
   })
     .then((response) => response.json())
     .then((data) => {
-      // console.warn('Projects Data:', data);
       resolve(data);
     })
     .catch(reject);
@@ -25,7 +24,6 @@ const getUserProjects = (userId) => new Promise((resolve, reject) => {
   })
     .then((response) => response.json())
     .then((data) => {
-      // console.warn('Projects Data:', data);
       resolve(data);
     })
     .catch(reject);
@@ -97,18 +95,6 @@ const deleteProject = (id) => new Promise((resolve, reject) => {
     })
     .catch(reject);
 });
-
-// // Functions to add and remove tasks from projects :
-// const addTaskCategory = (projectId, taskId) => fetch(`${clientCredentials.databaseURL}/projects/${projectId}/add_task_category/${taskId}`, {
-//   method: 'POST',
-//   headers: {
-//     'Content-Type': 'application/json',
-//   },
-// }).then((response) => response.json());
-
-// const removeTaskCategory = (projectId, projectTaskId) => fetch(`${clientCredentials.databaseURL}/projects/${projectId}/remove_task_category/${projectTaskId}`, {
-//   method: 'DELETE',
-// }).then(() => {});
 
 export {
   getProjects,
