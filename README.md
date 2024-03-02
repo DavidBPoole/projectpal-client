@@ -46,7 +46,7 @@ Figma
   - [Firebase Setup w/ Authentication instructional video](https://www.loom.com/share/163ffe1539bb482196efa713ed6231e9)
 
 2. Clone Project Pal (projectpal-client) to your local drive and change to that directory:
-  - `git@github.com:Mason-Austin/brewbuddy-client.git`
+  - `git@github.com:DavidBPoole/projectpal-client.git`
   - `cd projectpal-client`
         
 3. After opening the repository in your editor, create an .env file at the root directory for your project and paste the following keys inside:
