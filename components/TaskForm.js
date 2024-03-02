@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
+import Head from 'next/head';
 import { useState, useEffect } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { createTask, updateTask } from '../utils/data/TaskData';
@@ -83,6 +84,9 @@ function TaskForm({ taskObj }) {
 
   return (
     <>
+      <Head>
+        <title>TaskForm</title>
+      </Head>
       <h2 className="form-header">{taskObj.id ? 'Update Task' : 'Create Task'}</h2>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3">

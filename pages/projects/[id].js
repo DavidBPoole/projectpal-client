@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
+import Head from 'next/head';
 import Button from 'react-bootstrap/Button';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -49,32 +50,37 @@ const ProjectDetails = () => {
   };
 
   return (
-    <div>
-      {project ? (
-        <div>
-          <h1>{project.name}</h1>
-          <h2>ID#: <b>{project.id}</b></h2>
-          <p>Description: {project.description}</p>
-          <p>Due Date: {formatDueDate(project.due_date)}</p>
-          <p>Status: {project.status}</p>
+    <>
+      <Head>
+        <title>ProjectTasks</title>
+      </Head>
+      <div>
+        {project ? (
+          <div>
+            <h1>{project.name}</h1>
+            <h2>ID#: <b>{project.id}</b></h2>
+            <p>Description: {project.description}</p>
+            <p>Due Date: {formatDueDate(project.due_date)}</p>
+            <p>Status: {project.status}</p>
 
-          <h2>Tasks</h2>
-          {project.tasks.map((taskObj) => (
-            <TaskCard
-              key={taskObj.id}
-              taskObj={taskObj}
-              projectId={projectId}
-              refreshPage={fetchProjectDetails}
-            />
-          ))}
-          <Link href={`/tasks/new?projectId=${project.id}`} passHref>
-            <Button variant="primary" as="a">
-              Add Task
-            </Button>
-          </Link>
-        </div>
-      ) : null}
-    </div>
+            <h2>Tasks</h2>
+            {project.tasks.map((taskObj) => (
+              <TaskCard
+                key={taskObj.id}
+                taskObj={taskObj}
+                projectId={projectId}
+                refreshPage={fetchProjectDetails}
+              />
+            ))}
+            <Link href={`/tasks/new?projectId=${project.id}`} passHref>
+              <Button variant="primary" as="a">
+                Add Task
+              </Button>
+            </Link>
+          </div>
+        ) : null}
+      </div>
+    </>
   );
 };
 export default ProjectDetails;
