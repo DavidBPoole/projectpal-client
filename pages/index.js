@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
+import Head from 'next/head';
 import { Button } from 'react-bootstrap';
 import { useAuth } from '../utils/context/authContext';
 import ProjectCard from '../components/ProjectCard';
@@ -26,31 +27,36 @@ function Projects() {
   };
 
   return (
-    <div className="text-center">
-      <h1>Hello {user.fbUser.displayName}!</h1>
-      <p>Your Bio: {user.name}</p>
-      <Link href="/projects/new" passHref>
-        <Button variant="warning" type="button" size="lg">
-          Create Project
-        </Button>
-      </Link>
+    <>
+      <Head>
+        <title>ProjectPal</title>
+      </Head>
+      <div className="text-center">
+        <h1>Hello {user.fbUser.displayName}!</h1>
+        <p>Your Bio: {user.name}</p>
+        <Link href="/projects/new" passHref>
+          <Button variant="warning" type="button" size="lg">
+            Create Project
+          </Button>
+        </Link>
 
-      <div className="row mt-4">
-        {userProjects.length > 0 ? (
-          userProjects.map((project) => (
-            <div key={`project--${project.id}`} className="col-md-4 mb-4">
-              <ProjectCard
-                projectObj={project}
-                viewProject
-                refreshPage={refreshHomePage}
-              />
-            </div>
-          ))
-        ) : (
-          <p>No projects available.</p>
-        )}
+        <div className="row mt-4">
+          {userProjects.length > 0 ? (
+            userProjects.map((project) => (
+              <div key={`project--${project.id}`} className="col-md-4 mb-4">
+                <ProjectCard
+                  projectObj={project}
+                  viewProject
+                  refreshPage={refreshHomePage}
+                />
+              </div>
+            ))
+          ) : (
+            <p>No projects available.</p>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

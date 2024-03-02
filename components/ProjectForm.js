@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { Button, Form } from 'react-bootstrap';
@@ -65,6 +66,9 @@ const ProjectForm = ({ projectObj }) => {
 
   return (
     <>
+      <Head>
+        <title>ProjectForm</title>
+      </Head>
       <h2 className="form-header">{projectObj.id ? 'Update Project' : 'Create Project'}</h2>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
