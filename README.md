@@ -43,11 +43,11 @@ Figma
 # Setup Instructions:
 
 1. Set up a [Firebase](https://firebase.google.com/) project w/ authentication only.
-  - [Firebase Setup w/ Authentication instructional video](https://www.loom.com/share/163ffe1539bb482196efa713ed6231e9)
+    - [Firebase Setup w/ Authentication instructional video](https://www.loom.com/share/163ffe1539bb482196efa713ed6231e9)
 
 2. Clone Project Pal (projectpal-client) to your local drive and change to that directory:
-  - `git@github.com:DavidBPoole/projectpal-client.git`
-  - `cd projectpal-client`
+    - `git@github.com:DavidBPoole/projectpal-client.git`
+    - `cd projectpal-client`
         
 3. After opening the repository in your editor, create an .env file at the root directory for your project and paste the following keys inside:
 ```markdown
@@ -68,7 +68,7 @@ Figma
   `npm run dev`
 
 8. Click (http://localhost:3000/) within your terminal to open the application within your browser.
-  - note: the companion [Project Pal - Server](https://github.com/DavidBPoole/projectpal-server) must be running in order to use.
+    - note: the companion [Project Pal - Server](https://github.com/DavidBPoole/projectpal-server) must be running in order to use.
 
 ## Learn More about Next.js
 To learn more about Next.js, take a look at the following resources:
