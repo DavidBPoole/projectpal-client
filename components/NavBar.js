@@ -22,6 +22,8 @@ export default function NavBar() {
             <Link passHref href="/">
               <Nav.Link>Projects</Nav.Link>
             </Link>
+          </Nav>
+          <Nav className="ml-auto">
             <Button variant="danger" onClick={signOut}>
               Sign Out
             </Button>

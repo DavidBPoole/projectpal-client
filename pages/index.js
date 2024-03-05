@@ -35,12 +35,15 @@ function Projects() {
       <div className="text-center">
         <h1>Hello {user.fbUser.displayName}!</h1>
         <p>Your Bio: {user.name}</p>
-        <Link href="/projects/new" passHref>
-          <Button variant="warning" type="button" size="lg">
-            Create Project
-          </Button>
-        </Link>
-        <ProjectSearchBar />
+        <div className="d-flex justify-content-center align-items-center flex-column mb-4">
+          <Link href="/projects/new" passHref>
+            <Button variant="warning" type="button" size="lg">
+              Create Project
+            </Button>
+          </Link>
+          &nbsp;
+          <ProjectSearchBar />
+        </div>
         <div className="row mt-4">
           {userProjects.length > 0 ? (
             userProjects.map((project) => (
