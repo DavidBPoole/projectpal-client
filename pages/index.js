@@ -5,6 +5,7 @@ import { Button } from 'react-bootstrap';
 import { useAuth } from '../utils/context/authContext';
 import ProjectCard from '../components/ProjectCard';
 import { getUserProjects } from '../utils/data/ProjectData';
+import ProjectSearchBar from '../components/ProjectSearchBar';
 
 function Projects() {
   const { user } = useAuth();
@@ -39,7 +40,7 @@ function Projects() {
             Create Project
           </Button>
         </Link>
-
+        <ProjectSearchBar />
         <div className="row mt-4">
           {userProjects.length > 0 ? (
             userProjects.map((project) => (

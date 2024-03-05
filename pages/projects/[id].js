@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { getSingleProject } from '../../utils/data/ProjectData';
 import TaskCard from '../../components/TaskCard';
 import { getTasks } from '../../utils/data/TaskData';
+import TaskSearchBar from '../../components/TaskSearchBar';
 
 const ProjectDetails = () => {
   const [project, setProject] = useState();
@@ -64,6 +65,12 @@ const ProjectDetails = () => {
             <p>Status: {project.status}</p>
 
             <h2>Tasks</h2>
+            <Link href={`/tasks/new?projectId=${project.id}`} passHref>
+              <Button style={{ marginBottom: 10 }} variant="primary" as="a">
+                Add Task
+              </Button>
+            </Link>
+            <TaskSearchBar projectId={projectId} />
             {project.tasks.map((taskObj) => (
               <TaskCard
                 key={taskObj.id}
@@ -72,11 +79,6 @@ const ProjectDetails = () => {
                 refreshPage={fetchProjectDetails}
               />
             ))}
-            <Link href={`/tasks/new?projectId=${project.id}`} passHref>
-              <Button variant="primary" as="a">
-                Add Task
-              </Button>
-            </Link>
           </div>
         ) : null}
       </div>
