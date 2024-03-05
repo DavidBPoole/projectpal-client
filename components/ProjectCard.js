@@ -18,7 +18,7 @@ export default function ProjectCard({ projectObj, refreshPage }) {
   const formatDueDate = (dueDate) => {
     // Format "YYYY-MM-DD"
     const [year, month, day] = dueDate.split('-');
-    return `${month}/${day}/${year}`;
+    return `${month}-${day}-${year}`;
   };
 
   return (
