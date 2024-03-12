@@ -75,4 +75,20 @@ const useAuth = () => {
   return context;
 };
 
+// CODE BLOCK ATTEMPTING TO FIGURE OUT HOW TO REFRESH USER DATA WITHOUT HARD RELOAD ON INDEX.JS PAGE:
+// const useAuth = () => {
+//   const context = useContext(AuthContext);
+
+//   if (context === undefined) {
+//     throw new Error('useAuth must be used within an AuthProvider');
+//   }
+//   const setUser = (user) => {
+//     context.setUser(user);
+//   };
+//   return {
+//     ...context,
+//     setUser,
+//   };
+// };
+
 export { AuthProvider, useAuth, AuthConsumer };

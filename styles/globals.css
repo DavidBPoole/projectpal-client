@@ -57,7 +57,9 @@ body {
 }
 
 .form-control {
-  max-width: 400px;
+  /* max-width: 400px; */
+  max-width: 250px;
+  max-height: 50px
 }
 
 .btn.btn-secondary {
