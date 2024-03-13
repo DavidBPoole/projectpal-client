@@ -13,7 +13,7 @@ import { signOut } from '../utils/auth';
 
 function Projects() {
   // const { user, setUser } = useAuth();
-  const { user } = useAuth();
+  const { user, updateUser } = useAuth();
   const router = useRouter();
   const [userProjects, setUserProjects] = useState([]);
   const [refresh, setRefresh] = useState(0);
@@ -39,8 +39,10 @@ function Projects() {
   //   }
   // };
 
-  const refreshProjects = () => {
+  const refreshHomePage = () => {
     setRefresh((prevVal) => prevVal + 1);
+    // updateUser(user.id);
+    updateUser(user.uid);
   };
 
   const deleteThisUser = async () => {
@@ -89,7 +91,7 @@ function Projects() {
                 <ProjectCard
                   projectObj={project}
                   viewProject
-                  refreshPage={refreshProjects}
+                  refreshPage={refreshHomePage}
                 />
               </div>
             ))

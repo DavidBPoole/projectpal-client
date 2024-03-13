@@ -23,31 +23,126 @@ const AuthProvider = (props) => {
   // false = user is not logged in, but the app has loaded
   // an object/value = user is logged in
 
+  // const updateUser = useMemo(
+  //   () => (uid) => checkUser(uid).then((gamerInfo) => {
+  //     setUser({ fbUser: oAuthUser, ...gamerInfo });
+  //   }),
+  //   [oAuthUser],
+  // );
+
+  // const updateUser = useMemo(
+  //   () => (uid) => {
+  //     console.warn('Updating user with UID:', uid);
+  //     checkUser(uid).then((gamerInfo) => {
+  //       const updatedUser = { fbUser: oAuthUser, ...gamerInfo };
+  //       console.warn('Updated User:', updatedUser);
+  //       setUser(updatedUser);
+  //     });
+  //   },
+  //   [oAuthUser],
+  // );
+
+  // const updateUser = useMemo(
+  //   () => async (uid) => {
+  //     console.warn('Updating user with UID:', uid);
+  //     try {
+  //       const gamerInfo = await checkUser(uid);
+  //       const updatedUser = { fbUser: oAuthUser, ...gamerInfo };
+  //       console.warn('Updated User:', updatedUser);
+  //       setUser(updatedUser);
+  //     } catch (error) {
+  //       console.error('Error updating user data:', error);
+  //     }
+  //   },
+  //   [oAuthUser],
+  // );
+
+  // const updateUser = useMemo(
+  //   () => async (uid) => {
+  //     console.warn('Updating user with UID:', uid);
+  //     try {
+  //       const gamerInfo = await checkUser(uid);
+  //       const updatedUser = { fbUser: oAuthUser, ...gamerInfo };
+  //       console.warn('Updated User:', updatedUser);
+  //       setUser(updatedUser);
+  //       console.warn('User updated:', updatedUser);
+  //     } catch (error) {
+  //       console.error('Error updating user data:', error);
+  //     }
+  //   },
+  //   [oAuthUser],
+  // );
+
+  // const updateUser = useMemo(
+  //   () => async (uid, onUserUpdate) => {
+  //     console.warn('Updating user with UID:', uid);
+  //     try {
+  //       const gamerInfo = await checkUser(uid);
+  //       const updatedUser = { fbUser: oAuthUser, ...gamerInfo };
+  //       console.warn('Updated User:', updatedUser);
+  //       setUser(updatedUser);
+  //       if (typeof onUserUpdate === 'function') {
+  //         onUserUpdate(); // Trigger re-render in the component
+  //       }
+  //       console.warn('User updated:', updatedUser);
+  //     } catch (error) {
+  //       console.error('Error updating user data:', error);
+  //     }
+  //   },
+  //   [oAuthUser],
+  // );
+
   const updateUser = useMemo(
-    () => (uid) => checkUser(uid).then((gamerInfo) => {
-      setUser({ fbUser: oAuthUser, ...gamerInfo });
-    }),
+    () => (uid) => {
+      console.warn('Updating user with UID:', uid);
+      checkUser(uid).then((gamerInfo) => {
+        const updatedUser = { fbUser: oAuthUser, ...gamerInfo };
+        console.warn('Updated User:', updatedUser);
+        setUser(updatedUser);
+      });
+    },
     [oAuthUser],
   );
 
+  // useEffect(() => {
+  //   firebase.auth().onAuthStateChanged((fbUser) => {
+  //     if (fbUser) {
+  //       setOAuthUser(fbUser);
+  //       checkUser(fbUser.uid).then((gamerInfo) => {
+  //         let userObj = {};
+  //         if ('null' in gamerInfo) {
+  //           userObj = gamerInfo;
+  //         } else {
+  //           userObj = { fbUser, uid: fbUser.uid, ...gamerInfo };
+  //         }
+  //         setUser(userObj);
+  //       });
+  //     } else {
+  //       setOAuthUser(false);
+  //       setUser(false);
+  //     }
+  //   }); // creates a single global listener for auth state changed
+  // }, []);
+
   useEffect(() => {
-    firebase.auth().onAuthStateChanged((fbUser) => {
+    const unsubscribe = firebase.auth().onAuthStateChanged(async (fbUser) => {
       if (fbUser) {
         setOAuthUser(fbUser);
-        checkUser(fbUser.uid).then((gamerInfo) => {
-          let userObj = {};
-          if ('null' in gamerInfo) {
-            userObj = gamerInfo;
-          } else {
-            userObj = { fbUser, uid: fbUser.uid, ...gamerInfo };
-          }
+        try {
+          const gamerInfo = await checkUser(fbUser.uid);
+          const userObj = 'null' in gamerInfo ? gamerInfo : { fbUser, uid: fbUser.uid, ...gamerInfo };
           setUser(userObj);
-        });
+        } catch (error) {
+          console.error('Error updating user data:', error);
+        }
       } else {
         setOAuthUser(false);
         setUser(false);
       }
-    }); // creates a single global listener for auth state changed
+    });
+
+    // Clean up the subscription when the component unmounts
+    return () => unsubscribe();
   }, []);
 
   const value = useMemo(
@@ -92,3 +187,83 @@ const useAuth = () => {
 // };
 
 export { AuthProvider, useAuth, AuthConsumer };
+
+// WORKS BUT SENDS ENDLESS NETWORK REQUESTS:
+// import React, {
+//   createContext, useContext, useEffect, useState,
+// } from 'react';
+// import { checkUser } from '../auth';
+// import { firebase } from '../client';
+
+// const AuthContext = createContext();
+
+// AuthContext.displayName = 'AuthContext';
+
+// const AuthProvider = (props) => {
+//   const [user, setUser] = useState(null);
+//   const [oAuthUser, setOAuthUser] = useState(null);
+//   const [updateCounter, setUpdateCounter] = useState(0);
+
+//   useEffect(() => {
+//     const unsubscribe = firebase.auth().onAuthStateChanged((fbUser) => {
+//       if (fbUser) {
+//         setOAuthUser(fbUser);
+
+//         checkUser(fbUser.uid)
+//           .then((gamerInfo) => {
+//             let userObj = {};
+//             if ('null' in gamerInfo) {
+//               userObj = gamerInfo;
+//             } else {
+//               userObj = { fbUser, uid: fbUser.uid, ...gamerInfo };
+//             }
+//             setUser(userObj);
+//             setUpdateCounter((prevCounter) => prevCounter + 1); // Trigger update
+//           })
+//           .catch((error) => {
+//             console.error('Error updating user data:', error);
+//           });
+//       } else {
+//         setOAuthUser(false);
+//         setUser(false);
+//       }
+//     });
+
+//     // Clean up the subscription when the component unmounts
+//     return () => unsubscribe();
+//   }, [updateCounter]);
+
+//   const updateUser = (uid) => {
+//     checkUser(uid)
+//       .then((gamerInfo) => {
+//         setUser({ fbUser: oAuthUser, ...gamerInfo });
+//         setUpdateCounter((prevCounter) => prevCounter + 1); // Trigger update
+//       })
+//       .catch((error) => {
+//         console.error('Error updating user data:', error);
+//       });
+//   };
+
+//   const value = {
+//     user,
+//     updateUser,
+//     setUser,
+//     userLoading: user === null || oAuthUser === null,
+//   };
+
+//   return <AuthContext.Provider value={value} {...props} />;
+// };
+
+// const AuthConsumer = AuthContext.Consumer;
+
+// const useAuth = () => {
+//   const context = useContext(AuthContext);
+
+//   if (context === undefined) {
+//     throw new Error('useAuth must be used within an AuthProvider');
+//   }
+
+//   return context;
+// };
+
+// export { AuthProvider, useAuth, AuthConsumer };

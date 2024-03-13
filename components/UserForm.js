@@ -33,6 +33,19 @@ const UserForm = ({ userObj }) => {
     }));
   };
 
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (currentUser.id) {
+  //     const payload = {
+  //       id: currentUser.id,
+  //       name: currentUser.name,
+  //       bio: currentUser.bio,
+  //     };
+  //     updateUser(payload)
+  //       .then(() => router.push('/'));
+  //   }
+  // };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (currentUser.id) {
@@ -42,7 +55,13 @@ const UserForm = ({ userObj }) => {
         bio: currentUser.bio,
       };
       updateUser(payload)
-        .then(() => router.push('/'));
+        .then(() => {
+          // console.warn('User updated successfully');
+          router.push('/');
+        })
+        .catch((error) => {
+          console.error('Error updating user:', error);
+        });
     }
   };
 
