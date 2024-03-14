@@ -4,7 +4,8 @@ import Head from 'next/head';
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { updateUser } from '../utils/data/UserData';
+import { updateUserProfile } from '../utils/data/UserData';
+import { useAuth } from '../utils/context/authContext';
 
 const initialState = {
   name: '',
@@ -14,6 +15,7 @@ const initialState = {
 const UserForm = ({ userObj }) => {
   const [currentUser, setCurrentUser] = useState(initialState);
   const router = useRouter();
+  const { user, updateUser } = useAuth();
 
   useEffect(() => {
     if (userObj) {
@@ -54,9 +56,9 @@ const UserForm = ({ userObj }) => {
         name: currentUser.name,
         bio: currentUser.bio,
       };
-      updateUser(payload)
+      updateUserProfile(payload)
         .then(() => {
-          // console.warn('User updated successfully');
+          updateUser(user.uid);
           router.push('/');
         })
         .catch((error) => {
