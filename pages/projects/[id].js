@@ -8,10 +8,12 @@ import { getSingleProject } from '../../utils/data/ProjectData';
 import TaskCard from '../../components/TaskCard';
 import { getTasks } from '../../utils/data/TaskData';
 import TaskSearchBar from '../../components/TaskSearchBar';
+import { useAuth } from '../../utils/context/authContext';
 
 const ProjectDetails = () => {
   const [project, setProject] = useState();
   const router = useRouter();
+  const { user } = useAuth();
   const { id: projectId } = router.query;
 
   const fetchProjectDetails = async () => {
@@ -76,6 +78,7 @@ const ProjectDetails = () => {
                 key={taskObj.id}
                 taskObj={taskObj}
                 projectId={projectId}
+                currentUser={user}
                 refreshPage={fetchProjectDetails}
               />
             ))}

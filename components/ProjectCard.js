@@ -30,6 +30,13 @@ export default function ProjectCard({ projectObj, refreshPage }) {
             <Card.Text><b>{projectObj.name}</b></Card.Text>
             <Card.Text><b>Status:</b> {projectObj.status}</Card.Text>
             <Card.Text><b>Due Date:</b> {formatDueDate(projectObj.due_date)}</Card.Text>
+            <Card.Text><b>Collaborators:</b> {projectObj.collaborators.map((collaborator, index) => {
+              if (index === projectObj.collaborators.length - 1) {
+                return collaborator.user.name;
+              }
+              return `${collaborator.user.name}, `;
+            })}
+            </Card.Text>
             <Link href={`/projects/${projectObj.id}`} passHref>
               <Button variant="primary" as="a">
                 Details
@@ -61,6 +68,8 @@ ProjectCard.propTypes = {
     name: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
     due_date: PropTypes.string.isRequired,
+    // eslint-disable-next-line react/forbid-prop-types
+    collaborators: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
   refreshPage: PropTypes.func,
 };

@@ -30,6 +30,18 @@ const AuthProvider = (props) => {
     [oAuthUser],
   );
 
+  // const updateUser = useMemo(
+  //   () => (uid) => {
+  //     console.warn('Updating user with UID:', uid);
+  //     checkUser(uid).then((gamerInfo) => {
+  //       const updatedUser = { fbUser: oAuthUser, ...gamerInfo };
+  //       console.warn('Updated User:', updatedUser);
+  //       setUser(updatedUser);
+  //     });
+  //   },
+  //   [oAuthUser],
+  // );
+
   useEffect(() => {
     firebase.auth().onAuthStateChanged((fbUser) => {
       if (fbUser) {
@@ -49,6 +61,27 @@ const AuthProvider = (props) => {
       }
     }); // creates a single global listener for auth state changed
   }, []);
+
+  // useEffect(() => {
+  //   const unsubscribe = firebase.auth().onAuthStateChanged(async (fbUser) => {
+  //     if (fbUser) {
+  //       setOAuthUser(fbUser);
+  //       try {
+  //         const gamerInfo = await checkUser(fbUser.uid);
+  //         const userObj = 'null' in gamerInfo ? gamerInfo : { fbUser, uid: fbUser.uid, ...gamerInfo };
+  //         setUser(userObj);
+  //       } catch (error) {
+  //         console.error('Error updating user data:', error);
+  //       }
+  //     } else {
+  //       setOAuthUser(false);
+  //       setUser(false);
+  //     }
+  //   });
+
+  //   // Clean up the subscription when the component unmounts
+  //   return () => unsubscribe();
+  // }, []);
 
   const value = useMemo(
     // https://reactjs.org/docs/hooks-reference.html#usememo
