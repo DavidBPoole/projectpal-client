@@ -1,48 +1,43 @@
 import Link from 'next/link';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Head from 'next/head';
 import { Button } from 'react-bootstrap';
 import { useRouter } from 'next/router';
 import { useAuth } from '../utils/context/authContext';
 import ProjectCard from '../components/ProjectCard';
-import { getUserProjects } from '../utils/data/ProjectData';
+import { getAllProjects, getUserProjects } from '../utils/data/ProjectData';
 import ProjectSearchBar from '../components/ProjectSearchBar';
-// import { deleteUser, getSingleUser } from '../utils/data/UserData';
 import { deleteUser } from '../utils/data/UserData';
 import { signOut } from '../utils/auth';
 
 function Projects() {
-  // const { user, setUser } = useAuth();
-  const { user, updateUser } = useAuth();
+  const { user } = useAuth();
   const router = useRouter();
   const [userProjects, setUserProjects] = useState([]);
-  const [refresh, setRefresh] = useState(0);
+  const [filterOption, setFilterOption] = useState('myProjects');
+
+  const fetchProjects = useCallback(async () => {
+    try {
+      let fetchedProjects = [];
+      if (filterOption === 'myProjects' && user) {
+        fetchedProjects = await getUserProjects(user.id);
+      } else if (filterOption === 'allProjects') {
+        fetchedProjects = await getAllProjects();
+      }
+      setUserProjects(fetchedProjects);
+    } catch (error) {
+      console.error('Error fetching projects:', error);
+    }
+  }, [filterOption, user]);
 
   useEffect(() => {
     if (user) {
-      getUserProjects(user.id).then((data) => {
-        if (Array.isArray(data)) {
-          const updatedProjects = data.map((project) => ({ ...project }));
-          setUserProjects(updatedProjects);
-        }
-      });
+      fetchProjects();
     }
-  }, [user, refresh]);
+  }, [user, fetchProjects]);
 
-  // const refreshUserInfo = () => {
-  //   setRefresh((prevVal) => prevVal + 1);
-  //   try {
-  //     const userData = getSingleUser(user.id);
-  //     setUser(userData);
-  //   } catch (error) {
-  //     console.error('Error refreshing user data:', error);
-  //   }
-  // };
-
-  const refreshHomePage = () => {
-    setRefresh((prevVal) => prevVal + 1);
-    // updateUser(user.id);
-    updateUser(user.uid);
+  const handleFilterChange = (event) => {
+    setFilterOption(event.target.value);
   };
 
   const deleteThisUser = async () => {
@@ -59,7 +54,7 @@ function Projects() {
         <title>ProjectPal</title>
       </Head>
       <div className="text-center">
-        <h1>Hello {user.fbUser.displayName}!</h1>
+        <h1>Hello {user.fbUser.displayName}!  ID# {user.id}</h1>
         <p>Display Name: {user.name}</p>
         <p>Your Bio: {user.bio}</p>
         <Button
@@ -83,6 +78,10 @@ function Projects() {
           </Link>
           &nbsp;
           <ProjectSearchBar />
+          <select value={filterOption} onChange={handleFilterChange}>
+            <option value="myProjects">My Projects</option>
+            <option value="allProjects">All Projects</option>
+          </select>
         </div>
         <div className="row mt-4">
           {userProjects.length > 0 ? (
@@ -91,12 +90,13 @@ function Projects() {
                 <ProjectCard
                   projectObj={project}
                   viewProject
-                  refreshPage={refreshHomePage}
+                  currentUser={user}
+                  refreshPage={fetchProjects}
                 />
               </div>
             ))
           ) : (
-            <p>No projects available.</p>
+            <p>No projects available</p>
           )}
         </div>
       </div>

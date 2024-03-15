@@ -34,12 +34,18 @@ export default function SearchResult() {
       <Head>
         <title>Search</title>
       </Head>
+      &nbsp;
       <ProjectSearchBar />
       <h4 className="pageheaderflexwrap">Here are the results...</h4>
       <div className="productcardcontainer">
         {searchResults.length === 0 ? (<h5 className="pageheaderflexwrap">No projects found</h5>)
           : (searchResults.map((project) => (
-            <ProjectCard key={project.id} projectObj={project} refreshPage={getProjectSearchResults} />
+            <ProjectCard
+              key={project.id}
+              projectObj={project}
+              currentUser={user}
+              refreshPage={getProjectSearchResults}
+            />
           )))}
       </div>
     </div>

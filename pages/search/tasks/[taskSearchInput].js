@@ -38,12 +38,18 @@ export default function SearchResult() {
       <Head>
         <title>Search</title>
       </Head>
+      &nbsp;
       <TaskSearchBar projectId={projectId} />
       <h4 className="pageheaderflexwrap">Here are the results...</h4>
       <div className="productcardcontainer">
         {searchResults.length === 0 ? (<h5 className="pageheaderflexwrap">No tasks found</h5>)
           : (searchResults.map((taskObj) => (
-            <TaskCard key={taskObj.id} taskObj={taskObj} projectId={projectId} refreshPage={getTaskSearchResults} />
+            <TaskCard
+              key={taskObj.id}
+              taskObj={taskObj}
+              projectId={projectId}
+              refreshPage={getTaskSearchResults}
+            />
           )))}
       </div>
     </div>

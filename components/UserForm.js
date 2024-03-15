@@ -4,8 +4,8 @@ import Head from 'next/head';
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { updateUserProfile } from '../utils/data/UserData';
 import { useAuth } from '../utils/context/authContext';
+import { updateUserProfile } from '../utils/data/UserData';
 
 const initialState = {
   name: '',

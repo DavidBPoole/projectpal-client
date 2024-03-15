@@ -19,7 +19,16 @@ export default function TaskSearchBar({ projectId }) {
   return (
     <div>
       <Form onSubmit={handleSubmit} id="searchBar">
-        <input className="form-control" type="text" placeholder="Search by.... (name,  priority, or status)" onChange={handleChange} value={taskSearchInput} style={{ width: '300px', height: '40px' }} />
+        <input
+          className="form-control"
+          type="text"
+          placeholder="Search by.... ( task name, priority, or status)"
+          onChange={handleChange}
+          value={taskSearchInput}
+          style={{
+            marginBottom: 20, border: '1px solid black', borderRadius: 10, padding: '10px',
+          }}
+        />
       </Form>
     </div>
   );
