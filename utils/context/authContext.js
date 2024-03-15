@@ -30,6 +30,18 @@ const AuthProvider = (props) => {
     [oAuthUser],
   );
 
+  // const updateUser = useMemo(
+  //   () => (uid) => {
+  //     console.warn('Updating user with UID:', uid);
+  //     checkUser(uid).then((gamerInfo) => {
+  //       const updatedUser = { fbUser: oAuthUser, ...gamerInfo };
+  //       console.warn('Updated User:', updatedUser);
+  //       setUser(updatedUser);
+  //     });
+  //   },
+  //   [oAuthUser],
+  // );
+
   useEffect(() => {
     firebase.auth().onAuthStateChanged((fbUser) => {
       if (fbUser) {
@@ -49,6 +61,27 @@ const AuthProvider = (props) => {
       }
     }); // creates a single global listener for auth state changed
   }, []);
+
+  // useEffect(() => {
+  //   const unsubscribe = firebase.auth().onAuthStateChanged(async (fbUser) => {
+  //     if (fbUser) {
+  //       setOAuthUser(fbUser);
+  //       try {
+  //         const gamerInfo = await checkUser(fbUser.uid);
+  //         const userObj = 'null' in gamerInfo ? gamerInfo : { fbUser, uid: fbUser.uid, ...gamerInfo };
+  //         setUser(userObj);
+  //       } catch (error) {
+  //         console.error('Error updating user data:', error);
+  //       }
+  //     } else {
+  //       setOAuthUser(false);
+  //       setUser(false);
+  //     }
+  //   });
+
+  //   // Clean up the subscription when the component unmounts
+  //   return () => unsubscribe();
+  // }, []);
 
   const value = useMemo(
     // https://reactjs.org/docs/hooks-reference.html#usememo
@@ -74,21 +107,5 @@ const useAuth = () => {
   }
   return context;
 };
-
-// CODE BLOCK ATTEMPTING TO FIGURE OUT HOW TO REFRESH USER DATA WITHOUT HARD RELOAD ON INDEX.JS PAGE:
-// const useAuth = () => {
-//   const context = useContext(AuthContext);
-
-//   if (context === undefined) {
-//     throw new Error('useAuth must be used within an AuthProvider');
-//   }
-//   const setUser = (user) => {
-//     context.setUser(user);
-//   };
-//   return {
-//     ...context,
-//     setUser,
-//   };
-// };
 
 export { AuthProvider, useAuth, AuthConsumer };
