@@ -59,11 +59,17 @@ const ProjectDetails = () => {
         {project ? (
           <div>
             <h1>{project.name}</h1>
-            <h2>ID#: <b>{project.id}</b></h2>
-            <p>Description: {project.description}</p>
-            <p>Due Date: {formatDueDate(project.due_date)}</p>
-            <p>Status: {project.status}</p>
-
+            <h2><b>ID#:</b> <b>{project.id}</b></h2>
+            <p><b>Description:</b> {project.description}</p>
+            <p><b>Due Date:</b> {formatDueDate(project.due_date)}</p>
+            <p><b>Status:</b> {project.status}</p>
+            <p><b>Collaborators:</b> {project.collaborators.map((collaborator, index) => {
+              if (index === project.collaborators.length - 1) {
+                return collaborator.user.name;
+              }
+              return `${collaborator.user.name}, `;
+            })}
+            </p>
             <h2>Tasks</h2>
             <Link href={`/tasks/new?projectId=${project.id}`} passHref>
               <Button style={{ marginBottom: 10 }} variant="primary" as="a">

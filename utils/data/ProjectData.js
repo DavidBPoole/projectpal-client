@@ -1,6 +1,6 @@
 import { clientCredentials } from '../client';
 
-const getProjects = () => new Promise((resolve, reject) => {
+const getAllProjects = () => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/projects`, {
     method: 'GET',
     headers: {
@@ -97,7 +97,7 @@ const deleteProject = (id) => new Promise((resolve, reject) => {
 });
 
 export {
-  getProjects,
+  getAllProjects,
   getUserProjects,
   getSingleProject,
   createProject,
