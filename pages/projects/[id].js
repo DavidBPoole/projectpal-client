@@ -4,11 +4,12 @@ import Head from 'next/head';
 import Button from 'react-bootstrap/Button';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { useAuth } from '../../utils/context/authContext';
 import { getSingleProject } from '../../utils/data/ProjectData';
 import TaskCard from '../../components/TaskCard';
 import { getTasks } from '../../utils/data/TaskData';
 import TaskSearchBar from '../../components/TaskSearchBar';
-import { useAuth } from '../../utils/context/authContext';
+import { removeCollaborator } from '../../utils/data/CollaboratorData';
 
 const ProjectDetails = () => {
   const [project, setProject] = useState();
@@ -46,6 +47,32 @@ const ProjectDetails = () => {
     fetchData();
   }, [projectId]);
 
+  // const handleRemoveCollaborator = async (userId, collaborator) => {
+  //   try {
+  //     // const userId = user.id; // Assuming `user` is accessible in this scope
+  //     await removeCollaborator(projectId, userId, collaborator);
+  //     // Refresh project details after removing the collaborator
+  //     await fetchProjectDetails();
+  //   } catch (error) {
+  //     console.error('Error removing collaborator:', error);
+  //     // Handle error
+  //   }
+  // };
+
+  const handleRemoveCollaborator = async (collaboratorId) => {
+    try {
+      const confirmRemove = window.confirm('Are you sure you want to remove this collaborator?');
+      if (!confirmRemove) {
+        return;
+      }
+
+      await removeCollaborator(projectId, user.id, collaboratorId);
+      await fetchProjectDetails();
+    } catch (error) {
+      console.error('Error removing collaborator:', error);
+    }
+  };
+
   const formatDueDate = (dueDate) => {
     // Format "YYYY-MM-DD"
     const [year, month, day] = dueDate.split('-');
@@ -61,17 +88,44 @@ const ProjectDetails = () => {
         {project ? (
           <div>
             <h1>{project.name}</h1>
-            <h2><b>ID#:</b> <b>{project.id}</b></h2>
+            <h3><b>ID#:</b> <b>{project.id}</b></h3>
+            <h4><b><u>Project Details:</u></b></h4>
             <p><b>Description:</b> {project.description}</p>
             <p><b>Due Date:</b> {formatDueDate(project.due_date)}</p>
             <p><b>Status:</b> {project.status}</p>
-            <p><b>Collaborators:</b> {project.collaborators.map((collaborator, index) => {
+            {/* <p><b>Collaborators:</b> {project.collaborators.map((collaborator, index) => {
               if (index === project.collaborators.length - 1) {
                 return collaborator.user.name;
               }
               return `${collaborator.user.name}, `;
             })}
-            </p>
+            </p> */}
+            <h5><b><u>Collaborators:</u></b></h5>
+            {project.collaborators.length > 0 ? (
+              <table>
+                <thead>
+                  <tr>
+                    {/* <th>Name</th>
+                    <th>Remove</th> */}
+                  </tr>
+                </thead>
+                <tbody>
+                  {project.collaborators.map((collaborator) => (
+                    <tr key={collaborator.user.id}>
+                      <td>{collaborator.user.name}</td>
+                      {user.id === project.user.id && (
+                      <td>
+                        {/* <Button onClick={() => handleRemoveCollaborator(collaborator.id)} variant="clear" style={{ color: 'red', fontWeight: 'bold' }}>☒✗✘✕-❌🚫</Button> */}
+                        <Button onClick={() => handleRemoveCollaborator(collaborator.id)} variant="clear" style={{ color: 'red', fontWeight: 'bold' }}>✘</Button>
+                      </td>
+                      )}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p>No collaborators exist on this project.</p>
+            )}
             <h2>Tasks</h2>
             <Link href={`/tasks/new?projectId=${project.id}`} passHref>
               <Button style={{ marginBottom: 10 }} variant="primary" as="a">
@@ -79,15 +133,19 @@ const ProjectDetails = () => {
               </Button>
             </Link>
             <TaskSearchBar projectId={projectId} />
-            {project.tasks.map((taskObj) => (
-              <TaskCard
-                key={taskObj.id}
-                taskObj={taskObj}
-                projectId={projectId}
-                currentUser={user}
-                refreshPage={fetchProjectDetails}
-              />
-            ))}
+            {project.tasks.length > 0 ? (
+              project.tasks.map((taskObj) => (
+                <TaskCard
+                  key={taskObj.id}
+                  taskObj={taskObj}
+                  projectId={projectId}
+                  currentUser={user}
+                  refreshPage={fetchProjectDetails}
+                />
+              ))
+            ) : (
+              <p>No tasks exist for this project.</p>
+            )}
           </div>
         ) : null}
       </div>

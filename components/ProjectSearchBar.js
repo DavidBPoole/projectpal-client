@@ -21,7 +21,7 @@ export default function ProjectSearchBar() {
         <input
           className="form-control"
           type="text"
-          placeholder="Search by.... (name, status, or yyyy-mm-dd)"
+          placeholder="Search projects by.... (name, status, or yyyy-mm-dd)"
           onChange={handleChange}
           value={projectSearchInput}
           style={{

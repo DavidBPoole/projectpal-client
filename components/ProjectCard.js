@@ -63,12 +63,12 @@ export default function ProjectCard({ projectObj, currentUser, refreshPage }) {
             <Card.Text><b>{projectObj.name}</b></Card.Text>
             <Card.Text><b>Status:</b> {projectObj.status}</Card.Text>
             <Card.Text><b>Due Date:</b> {formatDueDate(projectObj.due_date)}</Card.Text>
-            <Card.Text><b>Collaborators:</b> {projectObj.collaborators.map((collaborator, index) => {
+            <Card.Text><b>Collaborators:</b> {projectObj.collaborators.length > 0 ? projectObj.collaborators.map((collaborator, index) => {
               if (index === projectObj.collaborators.length - 1) {
                 return collaborator.user.name;
               }
               return `${collaborator.user.name}, `;
-            })}
+            }) : 'None'}
             </Card.Text>
             {!userIsOwner && !userIsCollaborator && (
             <Button
