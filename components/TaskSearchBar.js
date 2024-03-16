@@ -22,7 +22,7 @@ export default function TaskSearchBar({ projectId }) {
         <input
           className="form-control"
           type="text"
-          placeholder="Search by.... ( task name, priority, or status)"
+          placeholder="Search tasks by.... ( task name, priority, or status)"
           onChange={handleChange}
           value={taskSearchInput}
           style={{

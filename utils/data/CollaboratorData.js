@@ -64,6 +64,45 @@ const leaveProject = (projectId, userId) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+// const removeCollaborator = (projectId, userId, collaboratorId) => new Promise((resolve, reject) => {
+//   fetch(`${clientCredentials.databaseURL}/collaborators/${projectId}/remove_collaborator`, {
+//     method: 'DELETE',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify({ user: userId, collaboratorId }),
+//   })
+//     .then((response) => {
+//       if (!response.ok) {
+//         throw new Error('Failed to remove collaborator');
+//       }
+//       resolve();
+//     })
+//     .catch(reject);
+// });
+
+const removeCollaborator = (projectId, userId, collaboratorId) => new Promise((resolve, reject) => {
+  const requestData = {
+    userId,
+    collaborator: collaboratorId,
+  };
+
+  fetch(`${clientCredentials.databaseURL}/collaborators/${projectId}/remove_collaborator`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(requestData),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Failed to remove collaborator');
+      }
+      resolve();
+    })
+    .catch(reject);
+});
+
 // const isCollaboratorOnProject = (projectId, userId) => new Promise((resolve, reject) => {
 //   fetch(`/api/collaborators/is_collaborator?project_id=${projectId}&user_id=${userId}`)
 //     .then((response) => {
@@ -81,5 +120,6 @@ export {
   getProjectCollaborators,
   joinProject,
   leaveProject,
+  removeCollaborator,
   // isCollaboratorOnProject,
 };
