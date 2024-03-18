@@ -81,7 +81,7 @@ const ProjectForm = ({ projectObj }) => {
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label className="form-text">Project Due Date</Form.Label>
-          <Form.Control type="date" name="due_date" placeholder="enter your project's due date" required value={currentProject.due_date} onChange={handleChange} />
+          <Form.Control type="date" name="due_date" placeholder="enter your project's due date" required value={currentProject.due_date} onChange={handleChange} style={{ maxWidth: 150 }} />
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label className="form-text">Project Status</Form.Label>

@@ -15,6 +15,7 @@ export default function ProjectSearchBar() {
     if (projectSearchInput !== '') router.push(`/search/${projectSearchInput}`);
     setProjectSearchInput('');
   };
+
   return (
     <div>
       <Form onSubmit={handleSubmit} id="searchBar">
@@ -25,7 +26,7 @@ export default function ProjectSearchBar() {
           onChange={handleChange}
           value={projectSearchInput}
           style={{
-            marginBottom: 20, border: '1px solid black', borderRadius: 10, padding: '10px',
+            marginBottom: 8, border: '1px solid black', borderRadius: 10, padding: '10px',
           }}
         />
       </Form>

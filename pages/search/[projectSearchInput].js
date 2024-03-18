@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { useAuth } from '../../utils/context/authContext';
-import { getUserProjects } from '../../utils/data/ProjectData';
+import { getAllProjects, getUserProjects } from '../../utils/data/ProjectData';
 import ProjectCard from '../../components/ProjectCard';
 import ProjectSearchBar from '../../components/ProjectSearchBar';
 
@@ -12,22 +12,37 @@ export default function SearchResult() {
   const { user } = useAuth();
   const router = useRouter();
   const { projectSearchInput } = router.query;
+  const [searchAllProjects, setSearchAllProjects] = useState(false);
 
-  const getProjectSearchResults = () => {
-    getUserProjects(user.id).then((searchResultsArray) => {
-      const filterResults = searchResultsArray.filter((project) => project.name.toLowerCase().includes(projectSearchInput)
-        || project.due_date.toLowerCase().includes(projectSearchInput)
-        || project.status.toLowerCase().includes(projectSearchInput));
-      setSearchResults(filterResults);
-    });
+  const getProjectSearchResults = (searchInput) => {
+    if (searchAllProjects && searchInput) {
+      getAllProjects().then((projects) => {
+        const filterResults = projects.filter((project) => project.name.toLowerCase().includes(searchInput)
+          || project.due_date.toLowerCase().includes(searchInput)
+          || project.status.toLowerCase().includes(searchInput));
+        setSearchResults(filterResults);
+      });
+    } else {
+      getUserProjects(user.id).then((searchResultsArray) => {
+        const filterResults = searchResultsArray.filter((project) => project.name.toLowerCase().includes(searchInput)
+          || project.due_date.toLowerCase().includes(searchInput)
+          || project.status.toLowerCase().includes(searchInput));
+        setSearchResults(filterResults);
+      });
+    }
   };
 
   useEffect(() => {
-    getProjectSearchResults();
-    return () => {
+    if (projectSearchInput) {
+      getProjectSearchResults(projectSearchInput.toLowerCase());
+    } else {
       setSearchResults([]);
-    };
-  }, [projectSearchInput]);
+    }
+  }, [projectSearchInput, searchAllProjects]);
+
+  const handleSearchSubmit = (searchInput) => {
+    router.push(`/search/${searchInput}`);
+  };
 
   return (
     <div>
@@ -35,18 +50,31 @@ export default function SearchResult() {
         <title>Search</title>
       </Head>
       &nbsp;
-      <ProjectSearchBar />
+      <ProjectSearchBar onSearchSubmit={handleSearchSubmit} />
+      <div className="searchToggle form-check form-switch">
+        <input
+          type="checkbox"
+          className="form-check-input"
+          id="toggleSearch"
+          checked={searchAllProjects}
+          onChange={(e) => setSearchAllProjects(e.target.checked)}
+        />
+        <label className="form-check-label" htmlFor="toggleSearch">Search Community Projects</label>
+      </div>
       <h4 className="pageheaderflexwrap">Here are the results...</h4>
       <div className="productcardcontainer">
-        {searchResults.length === 0 ? (<h5 className="pageheaderflexwrap">No projects found</h5>)
-          : (searchResults.map((project) => (
+        {searchResults.length === 0 && projectSearchInput ? (
+          <h5 className="pageheaderflexwrap">No projects found</h5>
+        ) : (
+          searchResults.map((project) => (
             <ProjectCard
               key={project.id}
               projectObj={project}
               currentUser={user}
-              refreshPage={getProjectSearchResults}
+              refreshPage={() => getProjectSearchResults(projectSearchInput.toLowerCase())}
             />
-          )))}
+          ))
+        )}
       </div>
     </div>
   );
