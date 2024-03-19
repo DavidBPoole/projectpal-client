@@ -126,30 +126,39 @@ const ProjectDetails = () => {
             ) : (
               <p>No collaborators exist on this project.</p>
             )}
-            <h2>Tasks</h2>
+            {/* <h2>Tasks</h2> */}
             <Link href={`/tasks/new?projectId=${project.id}`} passHref>
-              <Button style={{ marginBottom: 10 }} variant="primary" as="a">
+              <Button style={{ marginBottom: 10 }} variant="warning" as="a">
                 Add Task
               </Button>
             </Link>
             <TaskSearchBar projectId={projectId} />
-            {project.tasks.length > 0 ? (
-              project.tasks.map((taskObj) => (
-                <TaskCard
-                  key={taskObj.id}
-                  taskObj={taskObj}
-                  projectId={projectId}
-                  currentUser={user}
-                  refreshPage={fetchProjectDetails}
-                />
-              ))
-            ) : (
-              <p>No tasks exist for this project.</p>
-            )}
+            <div
+              className="row mt-4"
+              style={{
+                display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(375px, 1fr))', gap: '10px', alignItems: 'start',
+              }}
+            >
+              {project.tasks.length > 0 ? (
+                project.tasks.map((taskObj) => (
+                  <div key={taskObj.id}>
+                    <TaskCard
+                      taskObj={taskObj}
+                      projectId={projectId}
+                      currentUser={user}
+                      refreshPage={fetchProjectDetails}
+                    />
+                  </div>
+                ))
+              ) : (
+                <p>No tasks available for this project.</p>
+              )}
+            </div>
           </div>
         ) : null}
       </div>
     </>
   );
 };
+
 export default ProjectDetails;
