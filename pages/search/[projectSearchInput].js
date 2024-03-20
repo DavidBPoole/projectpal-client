@@ -62,9 +62,19 @@ export default function SearchResult() {
         <label className="form-check-label" htmlFor="toggleSearch">Search Community Projects</label>
       </div>
       <h4 className="pageheaderflexwrap">Here are the results...</h4>
-      <div className="productcardcontainer">
+      <div
+        className="row mt-4"
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(375px, 1fr))',
+          gap: '10px',
+          alignItems: 'start',
+        }}
+      >
         {searchResults.length === 0 && projectSearchInput ? (
-          <h5 className="pageheaderflexwrap">No projects found</h5>
+          <div className="centered-message">
+            <h5>No projects found.</h5>
+          </div>
         ) : (
           searchResults.map((project) => (
             <ProjectCard

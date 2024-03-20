@@ -41,16 +41,29 @@ export default function SearchResult() {
       &nbsp;
       <TaskSearchBar projectId={projectId} />
       <h4 className="pageheaderflexwrap">Here are the results...</h4>
-      <div className="productcardcontainer">
-        {searchResults.length === 0 ? (<h5 className="pageheaderflexwrap">No tasks found</h5>)
-          : (searchResults.map((taskObj) => (
+      <div
+        className="row mt-4"
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(375px, 1fr))',
+          gap: '10px',
+          alignItems: 'start',
+        }}
+      >
+        {searchResults.length === 0 ? (
+          <div className="centered-message">
+            <h5>No tasks found.</h5>
+          </div>
+        ) : (
+          searchResults.map((taskObj) => (
             <TaskCard
               key={taskObj.id}
               taskObj={taskObj}
               projectId={projectId}
               refreshPage={getTaskSearchResults}
             />
-          )))}
+          ))
+        )}
       </div>
     </div>
   );

@@ -64,7 +64,7 @@ function Projects() {
             router.push(`/users/edit/${user.id}`);
           }}
         >
-          Edit Profile
+          ⚙️ Edit Profile
         </Button>
         <Button variant="danger" onClick={deleteThisUser}>
           Delete Profile
@@ -83,9 +83,14 @@ function Projects() {
             <option value="allProjects">All Projects</option>
           </select>
         </div>
-        <div className="row mt-4">
-          {userProjects.length > 0 ? (
-            userProjects.map((project) => (
+        {userProjects.length > 0 ? (
+          <div
+            className="row mt-4"
+            style={{
+              display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(375px, 1fr))', gap: '10px', alignItems: 'start',
+            }}
+          >
+            {userProjects.map((project) => (
               <div key={`project--${project.id}`} className="col-md-4 mb-4">
                 <ProjectCard
                   projectObj={project}
@@ -94,11 +99,13 @@ function Projects() {
                   refreshPage={fetchProjects}
                 />
               </div>
-            ))
-          ) : (
-            <p>No projects available</p>
-          )}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div className="mt-4">
+            <p className="text-center">No projects available.</p>
+          </div>
+        )}
       </div>
     </>
   );
