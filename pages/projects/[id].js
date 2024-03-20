@@ -128,7 +128,7 @@ const ProjectDetails = () => {
             )}
             {/* <h2>Tasks</h2> */}
             <Link href={`/tasks/new?projectId=${project.id}`} passHref>
-              <Button style={{ marginBottom: 10 }} variant="warning" as="a">
+              <Button style={{ marginBottom: 10, marginTop: 20 }} variant="warning" as="a">
                 Add Task
               </Button>
             </Link>
