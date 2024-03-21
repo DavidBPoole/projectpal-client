@@ -5,6 +5,7 @@ import Head from 'next/head';
 import { getTasks } from '../../../utils/data/TaskData';
 import TaskCard from '../../../components/TaskCard';
 import TaskSearchBar from '../../../components/TaskSearchBar';
+// import Footer from '../../../components/Footer';
 
 export default function SearchResult() {
   const [searchResults, setSearchResults] = useState([]);
@@ -65,6 +66,7 @@ export default function SearchResult() {
           ))
         )}
       </div>
+      {/* <Footer /> */}
     </div>
   );
 }
