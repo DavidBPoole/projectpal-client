@@ -6,6 +6,7 @@ import { useAuth } from '../../utils/context/authContext';
 import { getAllProjects, getUserProjects } from '../../utils/data/ProjectData';
 import ProjectCard from '../../components/ProjectCard';
 import ProjectSearchBar from '../../components/ProjectSearchBar';
+// import Footer from '../../components/Footer';
 
 export default function SearchResult() {
   const [searchResults, setSearchResults] = useState([]);
@@ -86,6 +87,7 @@ export default function SearchResult() {
           ))
         )}
       </div>
+      {/* <Footer /> */}
     </div>
   );
 }

@@ -9,6 +9,7 @@ import { getAllProjects, getUserProjects } from '../utils/data/ProjectData';
 import ProjectSearchBar from '../components/ProjectSearchBar';
 import { deleteUser } from '../utils/data/UserData';
 import { signOut } from '../utils/auth';
+import Footer from '../components/Footer';
 
 function Projects() {
   const { user } = useAuth();
@@ -66,13 +67,22 @@ function Projects() {
         >
           ⚙️ Edit Profile
         </Button>
-        <Button variant="danger" onClick={deleteThisUser}>
+        <Button
+          className="button"
+          variant="danger"
+          onClick={deleteThisUser}
+        >
           Delete Profile
         </Button>
         <div className="d-flex justify-content-center align-items-center flex-column mb-4">
         &nbsp;
           <Link href="/projects/new" passHref>
-            <Button variant="warning" type="button" size="lg">
+            <Button
+              className="button"
+              variant="warning"
+              type="button"
+              size="lg"
+            >
               Create Project
             </Button>
           </Link>
@@ -107,6 +117,7 @@ function Projects() {
           </div>
         )}
       </div>
+      <Footer />
     </>
   );
 }

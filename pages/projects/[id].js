@@ -10,6 +10,7 @@ import TaskCard from '../../components/TaskCard';
 import { getTasks } from '../../utils/data/TaskData';
 import TaskSearchBar from '../../components/TaskSearchBar';
 import { removeCollaborator } from '../../utils/data/CollaboratorData';
+import Footer from '../../components/Footer';
 
 const ProjectDetails = () => {
   const [project, setProject] = useState();
@@ -128,7 +129,15 @@ const ProjectDetails = () => {
             )}
             {/* <h2>Tasks</h2> */}
             <Link href={`/tasks/new?projectId=${project.id}`} passHref>
-              <Button style={{ marginBottom: 10, marginTop: 20 }} variant="warning" as="a">
+              <Button
+                className="btn.btn-primary"
+                style={{
+                  marginBottom: 15,
+                  marginTop: 20,
+                  backgroundColor: 'gold',
+                }}
+                as="a"
+              >
                 Add Task
               </Button>
             </Link>
@@ -157,6 +166,7 @@ const ProjectDetails = () => {
           </div>
         ) : null}
       </div>
+      <Footer />
     </>
   );
 };

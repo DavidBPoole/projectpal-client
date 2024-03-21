@@ -91,6 +91,7 @@ export default function ProjectCard({ projectObj, currentUser, refreshPage }) {
             {userIsOwner && (
               <>
                 <Button
+                  className="button"
                   variant="warning"
                   onClick={() => {
                     router.push(`/projects/edit/${projectObj.id}`);
@@ -99,7 +100,11 @@ export default function ProjectCard({ projectObj, currentUser, refreshPage }) {
                   Edit
                 </Button>
                 &nbsp;
-                <Button variant="danger" onClick={deleteThisProject}>
+                <Button
+                  className="button"
+                  variant="danger"
+                  onClick={deleteThisProject}
+                >
                   Delete
                 </Button>
               </>

@@ -34,6 +34,7 @@ export default function TaskCard({ taskObj, projectId, refreshPage }) {
             })}
             </Card.Text>
             <Button
+              className="button"
               variant="warning"
               onClick={() => {
                 router.push(`/tasks/edit/${taskObj.id}?projectId=${projectId}`);
@@ -44,7 +45,11 @@ export default function TaskCard({ taskObj, projectId, refreshPage }) {
 
             &nbsp;
 
-            <Button variant="danger" onClick={deleteThisTask}>
+            <Button
+              className="button"
+              variant="danger"
+              onClick={deleteThisTask}
+            >
               Delete
             </Button>
           </Card.Body>

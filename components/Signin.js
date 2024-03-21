@@ -21,12 +21,28 @@ function Signin() {
       {/* <h1>Hi there!</h1>
        */}
       <div className="signin-logo">
-        <img src="/project-pal-high-resolution-logo-black-transparent.png" width="40%" height="auto" alt="icon" className="nav-logo" />
+        <img
+          style={{ boxShadow: '2px 5px 15px 2px rgba(10, 10, 10, 0.2)' }}
+          src="/project-pal-high-resolution-logo-black-transparent.png"
+          width="40%"
+          height="auto"
+          alt="icon"
+          className="nav-logo"
+        />
       </div>
-      <p>Click the button below to login!</p>
-      <div style={{ width: '100%', margin: '0 auto' }}>
-        <Button type="button" size="lg" className="copy-btn" onClick={signIn}>
-          Sign In
+      <p className="sign-in-text">Sign in with</p>
+      <div className="sign-in-btn-container">
+        <Button
+          className="sign-in-btn"
+          variant="outline-dark"
+          style={{
+            width: '7rem',
+            height: '3rem',
+            boxShadow: '3px 3px 10px 2px rgba(10, 10, 10, 0.2)',
+          }}
+          onClick={signIn}
+        >
+          <img src="/googleLogo.png" width="35%" height="auto" alt="google sign in" className="google-button" />Google
         </Button>
       </div>
 
