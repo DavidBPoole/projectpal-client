@@ -73,20 +73,16 @@ function Projects() {
         <title>ProjectPal</title>
       </Head>
       <div className="text-center">
-        <h1>Hello {user.fbUser.displayName}!  ID# {user.id}</h1>
-        <p>Display Name: {user.name}</p>
-        <p>Your Bio: {user.bio}</p>
+        <h1>Hello {user.fbUser.displayName}!</h1>
+        <p><b>Community Name:</b> {user.name}</p>
+        <p><b>Bio:</b> {user.bio}</p>
         <Button
           variant="primary"
           style={{ marginRight: 10 }}
           onClick={handleShowModal}
-          // onClick={() => {
-          //   router.push(`/users/edit/${user.id}`);
-          // }}
         >
           ⚙️ Edit Profile
         </Button>
-        {/* User Form Modal */}
         <Modal show={showModal} onHide={handleCloseModal} centered>
           <Modal.Header className="modalHeader" closeButton>
             <Modal.Title>Edit Profile</Modal.Title>

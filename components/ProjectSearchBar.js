@@ -26,7 +26,10 @@ export default function ProjectSearchBar() {
           onChange={handleChange}
           value={projectSearchInput}
           style={{
-            marginBottom: 8, border: '1px solid black', borderRadius: 10, padding: '10px',
+            marginBottom: 8,
+            border: '1px solid black',
+            borderRadius: 10,
+            padding: '10px',
           }}
         />
       </Form>

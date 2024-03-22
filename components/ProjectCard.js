@@ -48,19 +48,17 @@ export default function ProjectCard({ projectObj, currentUser, refreshPage }) {
     return `${month}-${day}-${year}`;
   };
 
-  // const userIsOwner = currentUser && projectObj.user && currentUser.id === projectObj.user.id; // collaborator prop type - object
-  const userIsOwner = currentUser && projectObj && projectObj.user && currentUser.id === projectObj.user.id; // collaborator prop type - shape
+  const userIsOwner = currentUser && projectObj && projectObj.user && currentUser.id === projectObj.user.id;
 
-  // const userIsCollaborator = projectObj.collaborators.some((collaborator) => collaborator.user.id === currentUser.id); // collaborator prop type - object
-  const userIsCollaborator = projectObj && currentUser && projectObj.collaborators.some((collaborator) => collaborator.user.id === currentUser.id); // collaborator prop type - shape
+  const userIsCollaborator = projectObj && currentUser && projectObj.collaborators.some((collaborator) => collaborator.user.id === currentUser.id);
 
   return (
     <>
       <div className="project-cards-container">
         <Card className="text-center project-card" style={{ width: '25rem', margin: 20 }}>
-          <Card.Header><b>Project ID #{projectObj.id}</b></Card.Header>
+          <Card.Header><b>{projectObj.name}</b></Card.Header>
           <Card.Body>
-            <Card.Text><b>{projectObj.name}</b></Card.Text>
+            <Card.Text><b>Owner:</b> {projectObj.user.name}</Card.Text>
             <Card.Text><b>Status:</b> {projectObj.status}</Card.Text>
             <Card.Text><b>Due Date:</b> {formatDueDate(projectObj.due_date)}</Card.Text>
             <Card.Text><b>Collaborators:</b> {projectObj.collaborators.length > 0 ? projectObj.collaborators.map((collaborator, index) => {
@@ -133,6 +131,7 @@ ProjectCard.propTypes = {
     collaborators: PropTypes.arrayOf(PropTypes.shape),
     user: PropTypes.shape({
       id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
   currentUser: PropTypes.shape({

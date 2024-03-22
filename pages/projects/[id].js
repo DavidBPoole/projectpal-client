@@ -48,18 +48,6 @@ const ProjectDetails = () => {
     fetchData();
   }, [projectId]);
 
-  // const handleRemoveCollaborator = async (userId, collaborator) => {
-  //   try {
-  //     // const userId = user.id; // Assuming `user` is accessible in this scope
-  //     await removeCollaborator(projectId, userId, collaborator);
-  //     // Refresh project details after removing the collaborator
-  //     await fetchProjectDetails();
-  //   } catch (error) {
-  //     console.error('Error removing collaborator:', error);
-  //     // Handle error
-  //   }
-  // };
-
   const handleRemoveCollaborator = async (collaboratorId) => {
     try {
       const confirmRemove = window.confirm('Are you sure you want to remove this collaborator?');
@@ -88,35 +76,20 @@ const ProjectDetails = () => {
       <div>
         {project ? (
           <div>
-            <h1>{project.name}</h1>
-            <h3><b>ID#:</b> <b>{project.id}</b></h3>
-            <h4><b><u>Project Details:</u></b></h4>
+            <h1><b>{project.name}</b></h1>
+            <h5><b><u>Project Details</u></b></h5>
             <p><b>Description:</b> {project.description}</p>
             <p><b>Due Date:</b> {formatDueDate(project.due_date)}</p>
             <p><b>Status:</b> {project.status}</p>
-            {/* <p><b>Collaborators:</b> {project.collaborators.map((collaborator, index) => {
-              if (index === project.collaborators.length - 1) {
-                return collaborator.user.name;
-              }
-              return `${collaborator.user.name}, `;
-            })}
-            </p> */}
-            <h5><b><u>Collaborators:</u></b></h5>
+            <h5><b><u>Collaborators</u></b></h5>
             {project.collaborators.length > 0 ? (
               <table>
-                <thead>
-                  <tr>
-                    {/* <th>Name</th>
-                    <th>Remove</th> */}
-                  </tr>
-                </thead>
                 <tbody>
                   {project.collaborators.map((collaborator) => (
                     <tr key={collaborator.user.id}>
                       <td>{collaborator.user.name}</td>
                       {user.id === project.user.id && (
                       <td>
-                        {/* <Button onClick={() => handleRemoveCollaborator(collaborator.id)} variant="clear" style={{ color: 'red', fontWeight: 'bold' }}>☒✗✘✕-❌🚫</Button> */}
                         <Button onClick={() => handleRemoveCollaborator(collaborator.id)} variant="clear" style={{ color: 'red', fontWeight: 'bold' }}>✘</Button>
                       </td>
                       )}
@@ -127,7 +100,6 @@ const ProjectDetails = () => {
             ) : (
               <p>No collaborators exist on this project.</p>
             )}
-            {/* <h2>Tasks</h2> */}
             <Link href={`/tasks/new?projectId=${project.id}`} passHref>
               <Button
                 className="btn.btn-primary"

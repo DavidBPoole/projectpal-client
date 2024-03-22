@@ -6,7 +6,6 @@ import { useAuth } from '../../utils/context/authContext';
 import { getAllProjects, getUserProjects } from '../../utils/data/ProjectData';
 import ProjectCard from '../../components/ProjectCard';
 import ProjectSearchBar from '../../components/ProjectSearchBar';
-// import Footer from '../../components/Footer';
 
 export default function SearchResult() {
   const [searchResults, setSearchResults] = useState([]);
@@ -20,7 +19,8 @@ export default function SearchResult() {
       getAllProjects().then((projects) => {
         const filterResults = projects.filter((project) => project.name.toLowerCase().includes(searchInput)
           || project.due_date.toLowerCase().includes(searchInput)
-          || project.status.toLowerCase().includes(searchInput));
+          || project.status.toLowerCase().includes(searchInput)
+          || project.user.name.toLowerCase().includes(searchInput));
         setSearchResults(filterResults);
       });
     } else {
@@ -87,7 +87,6 @@ export default function SearchResult() {
           ))
         )}
       </div>
-      {/* <Footer /> */}
     </div>
   );
 }

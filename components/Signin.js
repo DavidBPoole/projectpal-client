@@ -18,8 +18,6 @@ function Signin() {
         paddingBlock: '0 5rem',
       }}
     >
-      {/* <h1>Hi there!</h1>
-       */}
       <div className="signin-logo">
         <img
           style={{ boxShadow: '2px 5px 15px 2px rgba(10, 10, 10, 0.2)' }}
