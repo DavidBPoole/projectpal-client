@@ -20,9 +20,8 @@ export default function TaskCard({ taskObj, projectId, refreshPage }) {
     <>
       <div className="task-cards-container">
         <Card className="text-center task-card" style={{ width: '25rem', margin: 20 }}>
-          <Card.Header><b>Task ID #{taskObj.id}</b></Card.Header>
+          <Card.Header><b>{taskObj.name}</b></Card.Header>
           <Card.Body>
-            <Card.Title><b>Task Name: {taskObj.name}</b></Card.Title>
             <Card.Text><b>Description:</b> {taskObj.description}</Card.Text>
             <Card.Text><b>Priority:</b> {taskObj.priority}</Card.Text>
             <Card.Text><b>Status:</b> {taskObj.status}</Card.Text>
