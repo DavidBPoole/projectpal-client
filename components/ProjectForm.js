@@ -73,19 +73,45 @@ const ProjectForm = ({ projectObj }) => {
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
           <Form.Label className="form-text">Project Name</Form.Label>
-          <Form.Control name="name" placeholder="enter your project's name" required value={currentProject.name} onChange={handleChange} />
+          <Form.Control
+            name="name"
+            placeholder="Enter your project's name"
+            required
+            value={currentProject.name}
+            onChange={handleChange}
+          />
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label className="form-text">Project Description</Form.Label>
-          <Form.Control name="description" placeholder="enter your project's description" required value={currentProject.description} onChange={handleChange} />
+          <Form.Control
+            name="description"
+            placeholder="Enter your project's description"
+            required
+            value={currentProject.description}
+            onChange={handleChange}
+          />
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label className="form-text">Project Due Date</Form.Label>
-          <Form.Control type="date" name="due_date" placeholder="enter your project's due date" required value={currentProject.due_date} onChange={handleChange} style={{ maxWidth: 150 }} />
+          <Form.Control
+            type="date"
+            name="due_date"
+            placeholder="Enter your project's due date"
+            required
+            value={currentProject.due_date}
+            onChange={handleChange}
+            style={{ maxWidth: 150 }}
+          />
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label className="form-text">Project Status</Form.Label>
-          <Form.Select name="status" required value={currentProject.status} onChange={handleChange}>
+          <Form.Select
+            name="status"
+            required
+            value={currentProject.status}
+            onChange={handleChange}
+            style={{ maxWidth: 200 }}
+          >
             <option value="">Select Project Status</option>
             <option value="Pending">Pending</option>
             <option value="In Progress">In Progress</option>

@@ -1,21 +1,27 @@
-import Link from 'next/link';
 import React, { useState, useEffect, useCallback } from 'react';
 import Head from 'next/head';
-import { Button } from 'react-bootstrap';
+import Link from 'next/link';
+import { Button, Modal, Form } from 'react-bootstrap';
 import { useRouter } from 'next/router';
 import { useAuth } from '../utils/context/authContext';
 import ProjectCard from '../components/ProjectCard';
 import { getAllProjects, getUserProjects } from '../utils/data/ProjectData';
 import ProjectSearchBar from '../components/ProjectSearchBar';
-import { deleteUser } from '../utils/data/UserData';
+import { deleteUser, updateUserProfile } from '../utils/data/UserData';
 import { signOut } from '../utils/auth';
 import Footer from '../components/Footer';
 
 function Projects() {
-  const { user } = useAuth();
+  const { user, updateUser } = useAuth();
   const router = useRouter();
   const [userProjects, setUserProjects] = useState([]);
   const [filterOption, setFilterOption] = useState('myProjects');
+  const [showModal, setShowModal] = useState(false);
+  const [name, setName] = useState(user.name || '');
+  const [bio, setBio] = useState(user.bio || '');
+
+  const handleShowModal = () => setShowModal(true);
+  const handleCloseModal = () => setShowModal(false);
 
   const fetchProjects = useCallback(async () => {
     try {
@@ -49,6 +55,18 @@ function Projects() {
     }
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await updateUserProfile({ id: user.id, name, bio });
+      handleCloseModal();
+      updateUser(user.uid);
+      router.push('/');
+    } catch (error) {
+      console.error('Error updating user:', error);
+    }
+  };
+
   return (
     <>
       <Head>
@@ -61,12 +79,34 @@ function Projects() {
         <Button
           variant="primary"
           style={{ marginRight: 10 }}
-          onClick={() => {
-            router.push(`/users/edit/${user.id}`);
-          }}
+          onClick={handleShowModal}
+          // onClick={() => {
+          //   router.push(`/users/edit/${user.id}`);
+          // }}
         >
           ⚙️ Edit Profile
         </Button>
+        {/* User Form Modal */}
+        <Modal show={showModal} onHide={handleCloseModal} centered>
+          <Modal.Header className="modalHeader" closeButton>
+            <Modal.Title>Edit Profile</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form onSubmit={handleSubmit}>
+              <Form.Group className="mb-3">
+                <Form.Label className="form-text">Display Name</Form.Label>
+                <Form.Control name="name" placeholder="Enter your display name" required value={name} onChange={(e) => setName(e.target.value)} />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label className="form-text">Bio</Form.Label>
+                <Form.Control name="bio" placeholder="Enter your bio" required value={bio} onChange={(e) => setBio(e.target.value)} />
+              </Form.Group>
+              <Button variant="primary" type="submit">
+                Update
+              </Button>
+            </Form>
+          </Modal.Body>
+        </Modal>
         <Button
           className="button"
           variant="danger"
