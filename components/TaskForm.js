@@ -91,15 +91,33 @@ function TaskForm({ taskObj }) {
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
           <Form.Label className="form-text">Task Name</Form.Label>
-          <Form.Control name="name" placeholder="enter task name" required value={task.name} onChange={handleChange} />
+          <Form.Control
+            name="name"
+            placeholder="Enter task name"
+            required
+            value={task.name}
+            onChange={handleChange}
+          />
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label className="form-text">Task Description</Form.Label>
-          <Form.Control name="description" placeholder="enter task description" required value={task.description} onChange={handleChange} />
+          <Form.Control
+            name="description"
+            placeholder="Enter task description"
+            required
+            value={task.description}
+            onChange={handleChange}
+          />
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label className="form-text">Priority</Form.Label>
-          <Form.Select name="priority" required value={task.priority} onChange={handleChange}>
+          <Form.Select
+            name="priority"
+            required
+            value={task.priority}
+            onChange={handleChange}
+            style={{ maxWidth: 200 }}
+          >
             <option value="">Select Task Priority</option>
             <option value="Low">Low</option>
             <option value="Medium">Medium</option>
@@ -108,7 +126,13 @@ function TaskForm({ taskObj }) {
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label className="form-text">Task Status</Form.Label>
-          <Form.Select name="status" required value={task.status} onChange={handleChange}>
+          <Form.Select
+            name="status"
+            required
+            value={task.status}
+            onChange={handleChange}
+            style={{ maxWidth: 200 }}
+          >
             <option value="">Select Task Status</option>
             <option value="Pending">Pending</option>
             <option value="In Progress">In Progress</option>

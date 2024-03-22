@@ -136,3 +136,7 @@ body {
   margin-top: 5rem;
   width: 100%;
 }
+
+.modalHeader {
+  background-color: rgba(5, 124, 171, 0.178);
+}
