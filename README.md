@@ -25,7 +25,7 @@ This application is designed to give users with busy schedules a way to quickly 
 - Ability to collaborate with other authenticated users on your projects
 
 # Screens
-<img width="1119" alt="Screenshot 2024-04-05 at 10 27 10 PM" src="https://github.com/DavidBPoole/projectpal-client/assets/127453405/f3b2e70c-b860-4153-8917-b812b7dd34f7">
+<img width="500" height="auto" alt="Screenshot 2024-04-05 at 10 27 10 PM" src="https://github.com/DavidBPoole/projectpal-client/assets/127453405/f3b2e70c-b860-4153-8917-b812b7dd34f7">
 
 
 # Relevant Links
