@@ -28,6 +28,7 @@ This application is designed to give users with busy schedules a way to quickly 
 <img width="500" height="auto" alt="Screenshot 2024-04-05 at 10 27 10 PM" src="https://github.com/DavidBPoole/projectpal-client/assets/127453405/f3b2e70c-b860-4153-8917-b812b7dd34f7">
 <img width="500" height="auto" alt="Screenshot 2024-04-05 at 10 33 12 PM" src="https://github.com/DavidBPoole/projectpal-client/assets/127453405/512a15c5-1ec9-44a9-8270-0f5cbe93b71e">
 <img width="500" height="auto" alt="Screenshot 2024-04-05 at 10 34 37 PM" src="https://github.com/DavidBPoole/projectpal-client/assets/127453405/7e6d71b4-ccdb-4cc3-a869-0027ced6f3c2">
+<img width="500" height="auto" alt="Screenshot 2024-04-12 at 1 06 04 PM" src="https://github.com/DavidBPoole/projectpal-client/assets/127453405/341b54dc-1a48-4482-a997-424aa0fb2374">
 
 
 # Relevant Links
